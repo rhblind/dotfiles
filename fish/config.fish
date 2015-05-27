@@ -4,6 +4,7 @@
 
 set EDITOR "vim"                                # Default editor
 set PROJECT_HOME $HOME/Documents/workspace/     # Virtualfish PROJECT_HOME
+set fish_greeting ""                            # I don't need a greeting
 #set fish_custom $HOME/dotfiles/oh-my-fish
 set fish_path $HOME/.oh-my-fish
 set fish_theme bobthefish
