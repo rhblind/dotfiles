@@ -45,7 +45,8 @@ set         clipboard=unnamed       " make clipboard behave as expected
 set         wildignore+=.git/**
 
 " Autocommands
-autocmd!    BufWritePost ~/.vimrc.local  source %
+autocmd!    BufWritePost ~/.vimrc.local  source %                   " source this file whenever it is written to
+autocmd     BufNewFile,BufRead *.html set filetype=htmldjango       " always use htmldjango for html files
 
 " Keybindings
 let         mapleader = ","|                    " remap <leader> to ','
