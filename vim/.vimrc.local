@@ -47,11 +47,14 @@ set         wildignore+=.git/**
 " Autocommands
 autocmd!    BufWritePost ~/.vimrc.local  source %                   " source this file whenever it is written to
 autocmd     BufNewFile,BufRead *.html set filetype=htmldjango       " always use htmldjango for html files
+autocmd     BufWritePre * :%s/\s\+$//e                           " remove trailing spaces before saving buffer
 
 " Keybindings
 let         mapleader = ","|                    " remap <leader> to ','
 
-nnoremap    <Leader>. :|                        " <leader>. writes `:`
+map         <leader>f mzgg=G`z                  " reformat the entire file
+
+nnoremap    <leader>. :|                        " <leader>. writes `:`
 nmap        <leader>nt :NERDTreeToggle %<CR>|   " open NERDTree with ',nt'
 nmap        <leader>l :set list!<CR>|           " use <leader>l to toggle display of whitespaces
 vmap        Q gq|                               " reformat paragraph
