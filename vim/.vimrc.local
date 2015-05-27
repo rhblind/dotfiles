@@ -1,0 +1,109 @@
+" Color and fonts
+syntax      enable
+colorscheme kalisi
+set         background=dark
+set         guifont=Menlo\ for\ Powerline:h12   " download from https://github.com/abertsch/Menlo-for-Powerline
+set         laststatus=2                        " always display the status line
+
+" Global settings
+set         nofoldenable            " disable code folding
+set         noswapfile              " don't write swap files
+set         nobackup                " don't write backup files
+set         nobackup                " never create vim backup files
+set         title                   " change the terminal title
+set         hidden                  " hide buffers instead of closing them
+set         mouse=a                 " enable mouse scrolling
+set         autoindent              " enable autoindent
+set         smartindent             " do smart indenting
+set         expandtab               " insert spaces instead of tabs
+set         smarttab                " when on a <TAB> in front of a line insert `shiftwidth` number of spaces
+set         softtabstop=4           " number of spaces <TAB> counts for in editing operations
+set         tabstop=4               " number of spaces to insert for <TAB>
+set         shiftwidth=4            " number of spaces to use for each autoindent
+set         nowrap                  " disable line wrapping
+set         showmatch               " match braces
+set         matchtime=3             " match braces time
+set         undolevels=100          " undo levels
+set         incsearch               " do incremental searching
+set         number                  " show line numbers
+set         modeline                " If 'modeline' is on 'modelines' gives the number of lines that is checked for set commands.
+set         guioptions-=RLrl        " hide scrollbars
+set         guioptions-=T           " hide toolbar
+set         guioptions-=l           " hide left scrollbar
+set         guioptions-=L           " hide left scrollbar even if there is a vertical split
+set         guioptions-=r           " hide right scrollbar
+set         guioptions-=R           " hide right scrollbar even if there is a vertical split
+set         noeb vb t_vb=           " DON'T BEEP!
+set         smartcase               " ignore case is search string is in lowercase, else case-sensitive
+set         hlsearch                " highlight search terms
+set         incsearch               " show search matches while typing
+set         autowrite               " automatically write a file when leaving a modified buffer.
+set         clipboard=unnamed       " make clipboard behave as expected
+
+" global ignore pattern
+" set         wildignore=*.o,.git,*.swp,*.swo,*~,*.pyc,build,*.egg,*.egg/*,*.egg-info/*,dist,pyshared,.tox,.env,**/node_modules/**,**/bower_components/**,
+set         wildignore+=.git/**
+
+" Autocommands
+autocmd!    BufWritePost ~/.vimrc.local  source %
+
+" Keybindings
+let         mapleader = ","|                    " remap <leader> to ','
+
+nnoremap    <Leader>. :|                        " <leader>. writes `:`
+nmap        <leader>nt :NERDTreeToggle %<CR>|   " open NERDTree with ',nt'
+nmap        <leader>l :set list!<CR>|           " use <leader>l to toggle display of whitespaces
+vmap        Q gq|                               " reformat paragraph
+nmap        Q gqap|                             " reformat paragraph
+
+nmap        <leader>b :enew<CR>|                " create a new empty buffer
+nmap        <leader>l :bnext<CR>|               " next buffer
+nmap        <leader>h :bprevious<CR>|           " previous buffer
+nmap        <leader>bq :bp <BAR> bd #<CR>|      " close the current buffer and move to the previous one
+
+vnoremap    <silent> # :call VisualSelection('b')<CR> " pressing # in visual mode search for the current selection
+
+noremap     <leader>n :nohl<CR>|                " clear highligh from last search in normal mode
+inoremap    <leader>n :nohl<CR>|                " clear highligh from last search in insert mode
+vnoremap    <leader>n :nohl<CR>|                " clear highligh from last search in visual mode
+
+vnoremap    <leader>s :sort<CR>|                " <leader>s sorts stuff in visual mode
+
+" Move lines up or down using <C-j> or <C-k>
+nnoremap    <C-j> :m .+1<CR>==|                 " move one line up in normal mode
+nnoremap    <C-k> :m .-2<CR>==|                 " move one line down in normal mode
+inoremap    <C-j> <ESC>:m .+1<CR>==gi|          " move one line up in insert mode
+inoremap    <C-k> <ESC>:m .-2<CR>==gi|          " move one line down in insert mode
+vnoremap    <C-j> :m '>+1<CR>gv=gv|             " move one line up in visual mode
+vnoremap    <C-k> :m '<-2<CR>gv=gv|             " move one line down in visual mode
+
+" Disable the arrow keys =)
+" map <up> <nop>
+" map <down> <nop>
+" map <left> <nop>
+" map <right> <nop>
+
+"
+" Plugin configurations
+"
+
+" NERDTree settings
+
+" CTRLSpace setting
+let         g:ctrlspace_height = 10                         " minimal height
+let         g:ctrlspace_save_workspace_on_exit = 1          " save workspace on exit
+let         g:ctrlspace_save_workspace_on_switch = 1        " save workspace on switch
+let         g:ctrlspace_load_last_workspace_on_start = 1    " load last workspace on start
+let         g:ctrlsspace_max_search_results = 20            " I don't really need 200 results
+let         g:ctrlspace_search_timing = [10, 200]           " search timing
+let         g:ctrlspace_max_files = 200                     " max number of files to display in the plugin window
+let         g:ctrlspace_ignored_files='**/bower_components,**/node_modeules'
+
+" Neocomplete
+inoremap    <expr> <CR> pumvisible() ? "\<C-y>" :"\<CR>" " <CR>|                            " accepts the current choice and close the autocomplete box
+inoremap    <expr><ESC> pumvisible() ? neocomplete#smart_close_popup()."\<C-y>" : "\<ESC>"| " close the popup on <ESC>
+
+" Airline
+let         g:airline#extensions#tabline#enabled = 1        " automatically displays all buffers when there's only one tab open
+let         g:airline#extensions#tabline#fnamemod = ':t'    " only display filename in the tablist
+

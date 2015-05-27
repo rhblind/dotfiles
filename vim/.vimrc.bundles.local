@@ -1,0 +1,9 @@
+let     g:override_spf13_bundles=1    " enable bundle override
+let     g:spf13_bundle_groups=['general', 'writing', 'neocomplete', 'programming', 'ruby', 'python', 'javascript', 'html', 'misc',]
+
+" Additional plugins
+Plugin      'szw/vim-ctrlspace'
+
+" Ignore spf13 plugins
+UnBundle    'ctrlpvim/ctrlp.vim'
+UnBundle    'tacahiroy/ctrlp-funky'
