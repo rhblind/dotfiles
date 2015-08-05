@@ -1,11 +1,13 @@
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/rolf/.oh-my-zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+ZSH_THEME="powerlevel9k/powerlevel9k"
+
+# Powerlevel9k settings
+POWERLEVEL9K_MODE="awesome"
+
+# Activate zsh-completions
+fpath=(/usr/local/share/zsh-completions $fpath)
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -49,7 +51,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(adb, brew, brew-cask, django, git, npm, python, sbt, scala, ssh-agent, virtualenvwrapper)
 
 # User configuration
 
@@ -57,6 +59,7 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/ro
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -79,6 +82,26 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+#
+# Aliases
+#
+alias grep="grep --color=auto" 2>/dev/null
+alias egrep="egrep --color=auto" 2>/dev/null
+alias fgrep="fgrep --color=auto" 2>/dev/null
+alias sl="ls" 2>/dev/null
+alias ll="ls -l" 2>/dev/null
+alias la="ls -A" 2>/dev/null
+alias l="ls -CF" 2>/dev/null
+alias cp="cp -v" 2>/dev/null
+alias mv="mv -v" 2>/dev/null
+alias vim="mvim -fg" 2>/dev/null
+
+#
+# Key bindings
+# See http://stackoverflow.com/a/29403520/1326249 for iTerm2 bindings
+#
+
+# Fix for the non-working CMD-Backspace for deleting the line
+bindkey "^X\\x7f" backward-kill-line
+
