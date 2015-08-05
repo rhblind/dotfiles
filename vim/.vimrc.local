@@ -47,8 +47,8 @@ set         wildignore+=.git/**
 " Autocommands
 autocmd!    BufWritePost ~/.vimrc.local  source %                   " source this file whenever it is written to
 autocmd     BufNewFile,BufRead *.html set filetype=htmldjango       " always use htmldjango for html files
-autocmd     BufWritePre * :%s/\s\+$//e                           " remove trailing spaces before saving buffer
-
+autocmd     BufWritePre * :%s/\s\+$//e                              " remove trailing spaces before saving buffer
+autocmd     BufRead,BufNewFile *.scss set ft=scss.css
 " Keybindings
 let         mapleader = ","|                    " remap <leader> to ','
 
@@ -60,7 +60,7 @@ nmap        <leader>l :set list!<CR>|           " use <leader>l to toggle displa
 vmap        Q gq|                               " reformat paragraph
 nmap        Q gqap|                             " reformat paragraph
 
-nmap        <leader>b :enew<CR>|                " create a new empty buffer
+nmap        <leader>bn :enew<CR>|               " create a new empty buffer
 nmap        <leader>l :bnext<CR>|               " next buffer
 nmap        <leader>h :bprevious<CR>|           " previous buffer
 nmap        <leader>bq :bp <BAR> bd #<CR>|      " close the current buffer and move to the previous one

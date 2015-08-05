@@ -15,7 +15,7 @@ set fish_plugins theme android-sdk osx git-flow ssh vundle brew python django no
 #
 # Exports
 #
-set -x fish_user_paths $fish_user_paths /usr/local/bin
+set -x fish_user_paths /usr/local/bin /usr/local/sbin $fish_user_paths
 set -x LANG "no_NO.UTF-8"
 set -x LC_ALL "no_NO.UTF-8"
 
@@ -31,7 +31,7 @@ alias mv "mv -v"
 alias ws "cd $PROJECT_HOME"
 
 #
-# Python 
+# Python
 #
 eval (python -m virtualfish compat_aliases)     # Load virtualfish
 
