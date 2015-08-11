@@ -4,7 +4,12 @@ export ZSH=/Users/rolf/.oh-my-zsh
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Powerlevel9k settings
+DEFAULT_USER=rolf
 POWERLEVEL9K_MODE="awesome"
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
+POWERLEVEL9K_SHOW_CHANGESET=true
+POWERLEVEL9K_CHANGESET_HASH_LENGTH=6
+
 
 # Activate zsh-completions
 fpath=(/usr/local/share/zsh-completions $fpath)
@@ -62,20 +67,21 @@ source $ZSH/oh-my-zsh.sh
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=no_NO.UTF-8
+export LC_ALL=no_NO.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='mvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
+export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
