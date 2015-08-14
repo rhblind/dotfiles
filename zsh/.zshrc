@@ -17,8 +17,8 @@ antigen bundle ssh-agent
 antigen bundle virtualenvwrapper
 
 # Third party bundles
+antigen bundle zsh-users/zsh-completions src
 antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle tarruda/zsh-autosuggestions
 
 # Themes
 antigen theme bhilburn/powerlevel9k powerlevel9k
@@ -34,17 +34,6 @@ POWERLEVEL9K_MODE="awesome"
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 POWERLEVEL9K_SHOW_CHANGESET=true
 POWERLEVEL9K_CHANGESET_HASH_LENGTH=6
-
-#
-# Autocomplete settings
-#
-fpath=(/usr/local/share/zsh-completions $fpath)     # activate zsh-completions
-
-# Enable zsh-autosuggestions automatically
-zle-line-init() {
-    zle autosuggest-start
-}
-zle -N zle-line-init
 
 #
 # oh-my-zsh settings
