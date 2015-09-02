@@ -41,11 +41,10 @@ set         autowrite               " automatically write a file when leaving a 
 set         clipboard=unnamed       " make clipboard behave as expected
 
 " global ignore pattern
-" set         wildignore=*.o,.git,*.swp,*.swo,*~,*.pyc,build,*.egg,*.egg/*,*.egg-info/*,dist,pyshared,.tox,.env,**/node_modules/**,**/bower_components/**,
-set         wildignore+=.git/**
+set         wildignore=*.o,.git,*.swp,*.swo,*~,*.pyc,build,*.egg,*.egg/*,*.egg-info/*,dist,pyshared,.tox,.env,**/node_modules/**,**/bower_components/**,
 
 " Autocommands
-autocmd!    BufWritePost ~/.vimrc.local  source %                   " source this file whenever it is written to
+autocmd!    BufWritePost ~/.vimrc.local source %                    " source this file whenever it is written to
 autocmd     BufNewFile,BufRead *.html set filetype=htmldjango       " always use htmldjango for html files
 autocmd     BufWritePre * :%s/\s\+$//e                              " remove trailing spaces before saving buffer
 autocmd     BufRead,BufNewFile *.scss set ft=scss.css
