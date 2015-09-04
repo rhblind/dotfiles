@@ -48,6 +48,7 @@ autocmd!    BufWritePost ~/.vimrc.local source %                    " source thi
 autocmd     BufNewFile,BufRead *.html set filetype=htmldjango       " always use htmldjango for html files
 autocmd     BufWritePre * :%s/\s\+$//e                              " remove trailing spaces before saving buffer
 autocmd     BufRead,BufNewFile *.scss set ft=scss.css
+autocmd     BufNewFile,BufRead *.yml set filetype=yaml softtabstop=2 tabstop=2 shiftwidth=2 expandtab
 
 " Keybindings
 let         mapleader = ","|                    " remap <leader> to ','

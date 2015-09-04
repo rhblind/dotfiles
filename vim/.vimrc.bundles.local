@@ -4,6 +4,8 @@ let     g:spf13_bundle_groups=['general', 'writing', 'neocomplete', 'programming
 " Additional plugins
 Plugin      'szw/vim-ctrlspace'
 Plugin      'Valloric/MatchTagAlways'
+Plugin      'ekalinin/Dockerfile.vim'
+Plugin      'chase/vim-ansible-yaml'
 " Plugin      'fsharp/vim-fsharp'
 
 " Ignore spf13 plugins
