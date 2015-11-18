@@ -9,7 +9,9 @@ antigen bundle brew
 antigen bundle brew-cask
 antigen bundle django
 antigen bundle git
+antigen bundle golang
 antigen bundle npm
+antigen bundle nvm
 antigen bundle pip
 antigen bundle python
 antigen bundle sbt

@@ -24,7 +24,7 @@ source $(brew --prefix nvm)/nvm.sh
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='mvim'
+  export EDITOR='subl'
 fi
 
 # export aws key and id
