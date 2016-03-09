@@ -38,6 +38,9 @@ fi
 #    fi
 #fi
 
+# Homebrew github authentication token (for higher priority requests)
+HOMEBREW_GITHUB_API_TOKEN=a6a0fd7f4a54dba7b4a336fd0b0f3dbfc3f2dfad
+
 
 #
 # Aliases
@@ -52,4 +55,3 @@ alias l="ls -CF" 2>/dev/null
 alias cp="cp -v" 2>/dev/null
 alias mv="mv -v" 2>/dev/null
 alias vim="mvim -fg" 2>/dev/null
-

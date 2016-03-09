@@ -17,6 +17,8 @@ antigen bundle python
 antigen bundle sbt
 antigen bundle scala
 antigen bundle ssh-agent
+antigen bundle tmux
+antigen bundle tmuxinator
 antigen bundle virtualenvwrapper
 
 # Third party bundles
@@ -80,3 +82,8 @@ AWS_DEFAULT_PROFILE="default"
 #
 bindkey "^X\\x7f" backward-kill-line        # Fix for the non-working CMD-Backspace for deleting the line
 
+# if you do a 'rm *', Zsh will give you a sanity check!
+setopt RM_STAR_WAIT
+
+# Zsh has spelling corrector
+setopt CORRECT
