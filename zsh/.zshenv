@@ -38,9 +38,6 @@ fi
 #    fi
 #fi
 
-# Homebrew github authentication token (for higher priority requests)
-HOMEBREW_GITHUB_API_TOKEN=a6a0fd7f4a54dba7b4a336fd0b0f3dbfc3f2dfad
-
 
 #
 # Aliases
