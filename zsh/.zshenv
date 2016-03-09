@@ -52,3 +52,5 @@ alias l="ls -CF" 2>/dev/null
 alias cp="cp -v" 2>/dev/null
 alias mv="mv -v" 2>/dev/null
 alias vim="mvim -fg" 2>/dev/null
+alias t="tmux -2"
+alias td="tmux detach-client"
