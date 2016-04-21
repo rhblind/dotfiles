@@ -1,3 +1,5 @@
+set         nocompatible            " This should always go first!
+
 " Color and fonts
 syntax      enable
 colorscheme kalisi
@@ -63,6 +65,8 @@ nmap        <leader>bn :enew<CR>|               " create a new empty buffer
 nmap        <leader>l :bnext<CR>|               " next buffer
 nmap        <leader>h :bprevious<CR>|           " previous buffer
 nmap        <leader>bq :bp <BAR> bd #<CR>|      " close the current buffer and move to the previous one
+
+nmap        <silent><silent> <leader>p :set paste<CR>"*p:set nopaste<CR> "Toggle paste when pasting text
 
 vnoremap    <silent> # :call VisualSelection('b')<CR> " pressing # in visual mode search for the current selection
 

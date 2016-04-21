@@ -20,11 +20,14 @@ export ANDROID_HOME="$HOME/Library/Android/sdk"
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 
+# Z
+source $(brew --prefix z)/etc/profile.d/z.sh
+
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='subl'
+  export EDITOR='vim'
 fi
 
 # export aws key and id
@@ -38,7 +41,6 @@ fi
 #    fi
 #fi
 
-
 #
 # Aliases
 #
@@ -49,8 +51,40 @@ alias sl="ls" 2>/dev/null
 alias ll="ls -l" 2>/dev/null
 alias la="ls -A" 2>/dev/null
 alias l="ls -CF" 2>/dev/null
+alias cls="clear" 2>/dev/null
 alias cp="cp -v" 2>/dev/null
 alias mv="mv -v" 2>/dev/null
-alias vim="mvim -fg" 2>/dev/null
-alias t="tmux -2"
-alias td="tmux detach-client"
+alias tm="tmux" 2>/dev/null
+alias td="tmux detach" 2>/dev/null
+alias gs="git status" 2>/dev/null
+
+#
+# Functions
+#
+
+function docker-cleanup {
+  #
+  # Use `docker-cleanup --dry-run` to see what would
+  # be deleted.
+  #
+  EXITED=$(docker ps -q -f status=exited)
+  DANGLING=$(docker images -q -f "dangling=true")
+
+  if [ "$1" == "--dry-run" ]; then
+    echo "==> Would stop containers:"
+    echo $EXITED
+    echo "==> And images:"
+    echo $DANGLING
+  else
+    if [ -n "$EXITED" ]; then
+      docker rm $EXITED
+    else
+      echo "No containers to remove."
+    fi
+    if [ -n "$DANGLING" ]; then
+      docker rmi $DANGLING
+    else
+      echo "No images to remove."
+    fi
+  fi
+}
