@@ -1,25 +1,31 @@
-# Plugins (antigen)
+# Load Antigen
 source /usr/local/opt/antigen/share/antigen.zsh
-antigen use oh-my-zsh                               # Load the oh-my-zsh library
 
-# Bundles from the default repo (robbyrussell's oh-my-zsh)
-antigen bundle adb
-antigen bundle aws
-antigen bundle brew
-antigen bundle brew-cask
-antigen bundle django
-antigen bundle git
-antigen bundle golang
-antigen bundle npm
-antigen bundle nvm
-antigen bundle pip
-antigen bundle python
-antigen bundle sbt
-antigen bundle scala
-antigen bundle ssh-agent
-antigen bundle tmux
-antigen bundle tmuxinator
-antigen bundle virtualenvwrapper
+# Load the oh-my-zsh library
+antigen use oh-my-zsh
+
+#
+# Antigen Bundles
+#
+
+antigen bundle adb                      # Android Debug Bridge
+antigen bundle aws                      # Amazon Web Services
+antigen bundle brew                     # Homebrew
+antigen bundle brew-cask                # Homebrew
+antigen bundle django                   # Django
+antigen bundle git                      # Git
+antigen bundle golang                   # Go
+antigen bundle npm                      # Node Package Manager
+antigen bundle nvm                      # Node Virtual Manager
+antigen bundle node                     # Node
+antigen bundle pip                      # Python Package Manager
+antigen bundle python                   # Python
+antigen bundle sbt                      # Simple Build Tool (Scala)
+antigen bundle scala                    # Scala
+antigen bundle ssh-agent                # Auto start SSH Agent
+antigen bundle tmux                     # Tmux stuff
+antigen bundle tmuxinator               # Tmux stuff (I guess...)
+antigen bundle virtualenvwrapper        # Python Virtual Environment Manager
 
 # Third party bundles
 antigen bundle zsh-users/zsh-completions src

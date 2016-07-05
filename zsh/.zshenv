@@ -13,6 +13,15 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"     # Default ssh key
 export LANG=no_NO.UTF-8                 # Language settings
 export LC_ALL=no_NO.UTF-8               # Language settings
 
+# Java
+export JAVA_HOME="/Library/Java/Home"
+
+# Scala
+export SCALA_HOME="/usr/local/opt/scala/idea"
+if [ "X$(which sbt)" != "X" ]; then
+    export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=512M"
+fi
+
 # Android stuff
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 
@@ -29,17 +38,6 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='vim'
 fi
-
-# export aws key and id
-#AWS_CREDENTIALS_FILE=~/.aws/credentials
-#if [ -r $AWS_CREDENTIALS_FILE ]; then
-#    DEFAULT_AWS_ACCESS_KEY_ID=`awk -F'= ' '/^\[default/ {x=1; next} /^\[/ {x=0} x==1 && /^\aws_access_key_id/ {print $2}' $AWS_CREDENTIALS_FILE`
-#    DEFAULT_AWS_SECRET_ACCESS_KEY=`awk -F'= ' '/^\[default/ {x=1; next} /^\[/ {x=0} x==1 && /^\aws_secret_access_key/ {print $2}' $AWS_CREDENTIALS_FILE`
-#    if [[ "${DEFAULT_AWS_ACCESS_KEY_ID+x}" && "${DEFAULT_AWS_SECRET_ACCESS_KEY+x}" ]]; then
-#        export AWS_ACCESS_KEY_ID=$DEFAULT_AWS_ACCESS_KEY_ID
-#        export AWS_SECRET_ACCESS_KEY=$DEFAULT_AWS_SECRET_ACCESS_KEY
-#    fi
-#fi
 
 #
 # Aliases
