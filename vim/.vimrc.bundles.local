@@ -6,7 +6,6 @@ Plugin      'szw/vim-ctrlspace'
 Plugin      'Valloric/MatchTagAlways'
 Plugin      'ekalinin/Dockerfile.vim'
 Plugin      'chase/vim-ansible-yaml'
-" Plugin      'fsharp/vim-fsharp'
 
 " Ignore spf13 plugins
 UnBundle    'ctrlpvim/ctrlp.vim'

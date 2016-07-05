@@ -68,6 +68,10 @@ nmap        <leader>bq :bp <BAR> bd #<CR>|      " close the current buffer and m
 
 nmap        <silent><silent> <leader>p :set paste<CR>"*p:set nopaste<CR> "Toggle paste when pasting text
 
+" Insert a new line below the current line by pressing SHIFT-Enter
+nmap        <S-Enter> O<Esc>
+nmap        <CR> o<Esc>
+
 vnoremap    <silent> # :call VisualSelection('b')<CR> " pressing # in visual mode search for the current selection
 
 noremap     <leader>n :nohl<CR>|                " clear highligh from last search in normal mode
