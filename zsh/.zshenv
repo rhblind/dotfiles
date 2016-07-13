@@ -86,3 +86,7 @@ function docker-cleanup {
     fi
   fi
 }
+
+# Source secrets file
+source ~/.dotfiles/zsh/.zshenv-secrets
+
