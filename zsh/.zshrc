@@ -92,4 +92,5 @@ bindkey "^X\\x7f" backward-kill-line        # Fix for the non-working CMD-Backsp
 # setopt RM_STAR_WAIT
 
 # Zsh has spelling corrector
+unsetopt autopushd
 setopt CORRECT
