@@ -1,5 +1,5 @@
 # Load Antigen
-source /usr/local/opt/antigen/share/antigen.zsh
+source $(brew --prefix)/share/antigen/antigen.zsh
 
 # Load the oh-my-zsh library
 antigen use oh-my-zsh
@@ -10,10 +10,9 @@ antigen use oh-my-zsh
 
 antigen bundle adb                      # Android Debug Bridge
 antigen bundle aws                      # Amazon Web Services
-antigen bundle brew                     # Homebrew
-antigen bundle brew-cask                # Homebrew
 antigen bundle django                   # Django
 antigen bundle git                      # Git
+antigen bundle git-flow                 # Support for git-flow completions
 antigen bundle golang                   # Go
 antigen bundle npm                      # Node Package Manager
 antigen bundle nvm                      # Node Virtual Manager
@@ -28,8 +27,8 @@ antigen bundle tmuxinator               # Tmux stuff (I guess...)
 antigen bundle virtualenvwrapper        # Python Virtual Environment Manager
 
 # Third party bundles
-antigen bundle zsh-users/zsh-completions src
 antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-completions src
 
 # Themes
 antigen theme bhilburn/powerlevel9k powerlevel9k
@@ -37,14 +36,20 @@ antigen theme bhilburn/powerlevel9k powerlevel9k
 # Apply antigen stuff!
 antigen apply
 
+# Extra zsh-completions from Homebrew
+fpath=($(brew --prefix)/share/zsh-completions $fpath)
+
 #
 # Powerlevel9k settings
 #
-DEFAULT_USER=rolf
-POWERLEVEL9K_MODE="awesome"
+DEFAULT_USER=$USER
+POWERLEVEL9K_MODE="compatible"
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv context dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status time)
 POWERLEVEL9K_SHOW_CHANGESET=true
 POWERLEVEL9K_CHANGESET_HASH_LENGTH=6
+POWERLEVEL9K_VIRTUALENV_BACKGROUND='white'
 AWS_DEFAULT_PROFILE="default"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
@@ -93,4 +98,4 @@ bindkey "^X\\x7f" backward-kill-line        # Fix for the non-working CMD-Backsp
 
 # Zsh has spelling corrector
 unsetopt autopushd
-setopt CORRECT
+unsetopt CORRECT
