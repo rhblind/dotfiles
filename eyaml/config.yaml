@@ -1,0 +1,2 @@
+encrypt_method: gpg
+gpg_recipients: 'support@inonit.no,0x48D0EC7E,0x8AD23628,0x4804239D,0x3BBAA707'

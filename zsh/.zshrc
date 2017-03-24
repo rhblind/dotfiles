@@ -99,3 +99,8 @@ bindkey "^X\\x7f" backward-kill-line        # Fix for the non-working CMD-Backsp
 # Zsh has spelling corrector
 unsetopt autopushd
 unsetopt CORRECT
+
+# added by travis gem
+[ -f /Users/rolf/.travis/travis.sh ] && source /Users/rolf/.travis/travis.sh
+
+export PATH="$HOME/.yarn/bin:$PATH"

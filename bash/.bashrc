@@ -213,3 +213,6 @@ alias vim="mvim -fg" 2>/dev/null
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 eval "$(rbenv init -)"
+
+# added by travis gem
+[ -f /Users/rolf/.travis/travis.sh ] && source /Users/rolf/.travis/travis.sh

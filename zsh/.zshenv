@@ -8,13 +8,13 @@ CASE_SENSITIVE="true"                   # Uncomment the following line to use ca
 # User configuration
 #
 export MANPATH="/usr/local/man:$MANPATH"
-export PATH="$HOME/.bin:/usr/local/bin:/usr/local/opt/qt5/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/rolf/.rbenv/shims:/Users/rolf/Library/Android/sdk/platform-tools:/Users/rolf/Library/Android/sdk/tools:/Users/rolf/Library/Android/sdk/bin:~/.bin:/usr/local/sbin:/usr/local/opt/go/libexec/bin:/Users/rolf/.rvm/bin"
+export PATH="/usr/local/bin:$PATH:$HOME/.bin"
 export SSH_KEY_PATH="~/.ssh/rsa_id"     # Default ssh key
 export LANG=no_NO.UTF-8                 # Language settings
 export LC_ALL=no_NO.UTF-8               # Language settings
 
 # Java
-export JAVA_HOME="/Library/Java/Home"
+export JAVA_HOME=$(/usr/libexec/java_home)
 
 # Scala
 export SCALA_HOME="$(brew --prefix)/opt/scala/idea"
@@ -24,14 +24,23 @@ fi
 
 # Go
 export GOPATH="$HOME/Documents/workspace/golang"
-export PATH=$PATH:$GOPATH/bin
+export PATH="$PATH:$GOPATH/bin:$(brew --prefix go)/libexec/bin"
 
-# Android stuff
-export ANDROID_HOME="$HOME/Library/Android/sdk"
+# Qt5
+export PATH="$PATH:$(brew --prefix qt5)/bin"
 
-# Node stuff
+# Android
+export ANDROID_HOME="$(brew --prefix android-sdk)"
+export PATH="$PATH:$ANDROID_HOME/bin:$ANDROID_HOME/tools"
+
+# Node
 export NVM_DIR="$HOME/.nvm"
 source $(brew --prefix nvm)/nvm.sh
+
+# Ruby
+eval "$(rbenv init -)"
+
+export PATH="$PATH:$(yarn global bin)"
 
 # Z
 source $(brew --prefix z)/etc/profile.d/z.sh
@@ -45,8 +54,10 @@ source $(brew --prefix z)/etc/profile.d/z.sh
 #fi
 
 export ALTERNATE_EDITOR=""
-export EDITOR="emacsclient -t"                  # $EDITOR should open in terminal
-export VISUAL="emacsclient -c -a emacs"         # $VISUAL opens in GUI with non-daemon as alternate
+#export EDITOR="emacsclient -t"                  # $EDITOR should open in terminal
+export EDITOR="mvim -v"
+#export VISUAL="emacsclient -c -a emacs"         # $VISUAL opens in GUI with non-daemon as alternate
+export VISUAL="code"
 
 #
 # Aliases
