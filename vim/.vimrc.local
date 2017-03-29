@@ -8,6 +8,7 @@ set         guifont=Menlo\ for\ Powerline:h12   " download from https://github.c
 set         laststatus=2                        " always display the status line
 
 " Global settings
+set         macmeta                 " macOS meta support
 set         nofoldenable            " disable code folding
 set         noswapfile              " don't write swap files
 set         nobackup                " don't write backup files
