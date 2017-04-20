@@ -30,8 +30,8 @@ export PATH="$PATH:$GOPATH/bin:$(brew --prefix go)/libexec/bin"
 export PATH="$PATH:$(brew --prefix qt5)/bin"
 
 # Android
-export ANDROID_HOME="$(brew --prefix android-sdk)"
-export PATH="$PATH:$ANDROID_HOME/bin:$ANDROID_HOME/tools"
+export ANDROID_HOME="/usr/local/share/android-sdk"
+export PATH="$PATH:$ANDROID_HOME/tools"
 
 # Node
 export NVM_DIR="$HOME/.nvm"
