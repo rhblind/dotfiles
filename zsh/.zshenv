@@ -2,19 +2,16 @@
 # oh-my-zsh settings
 #
 export ZSH="$HOME/.oh-my-zsh"       # Path to your oh-my-zsh installation.
-CASE_SENSITIVE="true"                   # Uncomment the following line to use case-sensitive completion.
+CASE_SENSITIVE="true"               # Uncomment the following line to use case-sensitive completion.
 
 #
 # User configuration
 #
 export MANPATH="/usr/local/man:$MANPATH"
-export PATH="/usr/local/bin:$PATH:$HOME/.bin"
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH:$HOME/.bin"
 export SSH_KEY_PATH="~/.ssh/rsa_id"     # Default ssh key
 export LANG=no_NO.UTF-8                 # Language settings
 export LC_ALL=no_NO.UTF-8               # Language settings
-
-# Java
-export JAVA_HOME=$(/usr/libexec/java_home)
 
 # Scala
 export SCALA_HOME="$(brew --prefix)/opt/scala/idea"
@@ -26,25 +23,36 @@ fi
 export GOPATH="$HOME/Documents/workspace/golang"
 export PATH="$PATH:$GOPATH/bin:$(brew --prefix go)/libexec/bin"
 
+# Lua
+export LUA_PATH="$LUA_PATH;$(brew --prefix lua)/?.lua;$HOME/.luarocks/lib/lua/5.2/?.lua"
+export LUA_CPATH="$LUA_PATH;$(brew --prefix lua)/?.so;$HOME/.luarocks/lib/lua/5.2/?.so"
+export PATH="$PATH:$HOME/.luarocks/bin:$(brew --prefix lua)/bin"
+
 # Qt5
 export PATH="$PATH:$(brew --prefix qt5)/bin"
 
 # Android
-export ANDROID_HOME="/usr/local/share/android-sdk"
+export ANDROID_HOME="/usr/local/opt/android-sdk"
 export PATH="$PATH:$ANDROID_HOME/tools"
+export PATH="$PATH:$ANDROID_HOME/platform-tools"
 
 # Node
+export PATH="$PATH:$(yarn global bin)"
 export NVM_DIR="$HOME/.nvm"
 source $(brew --prefix nvm)/nvm.sh
 
 # Ruby
 eval "$(rbenv init -)"
 
-export PATH="$PATH:$(yarn global bin)"
+# Python
+export REQUESTS_CA_BUNDLE=/usr/local/etc/openssl/certs/ca-bundle.pem
+export VIRTUALENVWRAPPER_PYTHON=$(brew --prefix python)/libexec/bin/python
 
 # Z
 source $(brew --prefix z)/etc/profile.d/z.sh
 
+# Using GNU getopt
+export FLAGS_GETOPT_CMD="$(brew --prefix gnu-getopt)/bin/getopt"
 
 # Preferred editor for local and remote sessions
 #if [[ -n $SSH_CONNECTION ]]; then
@@ -78,39 +86,7 @@ alias gs="git status" 2>/dev/null
 alias vim="mvim -v" 2>/dev/null
 alias e="emacsclient -t" 2>/dev/null
 alias ev="emacsclient -c -a emacs &" 2>/dev/null
-
-
-#
-# Functions
-#
-
-
-#function docker-cleanup {
-#  #
-#  # Use `docker-cleanup --dry-run` to see what would
-#  # be deleted.
-#  #
-#  EXITED=$(docker ps -q -f status=exited)
-#  DANGLING=$(docker images -q -f "dangling=true")
-#
-#  if [ "$1" == "--dry-run" ]; then
-#    echo "==> Would stop containers:"
-#    echo $EXITED
-#    echo "==> And images:"
-#    echo $DANGLING
-#  else
-#    if [ -n "$EXITED" ]; then
-#      docker rm $EXITED
-#    else
-#      echo "No containers to remove."
-#    fi
-#    if [ -n "$DANGLING" ]; then
-#      docker rmi $DANGLING
-#    else
-#      echo "No images to remove."
-#    fi
-#  fi
-#}
+alias pe="pipenv" 2>/dev/null
 
 # Source secrets file
 source ~/.dotfiles/zsh/.zshenv-secrets

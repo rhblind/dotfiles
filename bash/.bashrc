@@ -55,7 +55,7 @@ if [ `uname -s` == "Darwin" ]; then
 
     # Scala HOME for use with IntelliJ
     export SCALA_HOME="/usr/local/opt/scala/idea"
-    
+
     # Scala sbt (simple build tool) options
     if [ "X$(which sbt)" != "X" ]; then
         export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=512M"
@@ -205,7 +205,7 @@ alias sl="ls" 2>/dev/null
 alias ll="ls -l" 2>/dev/null
 alias la="ls -A" 2>/dev/null
 alias l="ls -CF" 2>/dev/null
-alias cp="cp -v" 2>/dev/null
+#alias cp="cp -v" 2>/dev/null
 alias mv="mv -v" 2>/dev/null
 alias vim="mvim -fg" 2>/dev/null
 

@@ -29,6 +29,7 @@ antigen bundle virtualenvwrapper        # Python Virtual Environment Manager
 # Third party bundles
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-completions src
+antigen bundle gangleri/pipenv
 
 # Themes
 antigen theme bhilburn/powerlevel9k powerlevel9k
@@ -96,11 +97,10 @@ bindkey "^X\\x7f" backward-kill-line        # Fix for the non-working CMD-Backsp
 # if you do a 'rm *', Zsh will give you a sanity check!
 # setopt RM_STAR_WAIT
 
-# Zsh has spelling corrector
-unsetopt autopushd
-unsetopt CORRECT
+
+unsetopt autopushd  # Normal pushd/popd behaviour
+unsetopt CORRECT    # Disable Zsh spelling corrector
 
 # added by travis gem
 [ -f /Users/rolf/.travis/travis.sh ] && source /Users/rolf/.travis/travis.sh
 
-export PATH="$HOME/.yarn/bin:$PATH"
