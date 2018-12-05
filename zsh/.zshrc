@@ -1,41 +1,22 @@
-# Load Antigen
-source $(brew --prefix)/share/antigen/antigen.zsh
+# Antigen
+# source $HOME/.zshenv-antigen
 
-# Load the oh-my-zsh library
-antigen use oh-my-zsh
+# Zplug
+source $(brew --prefix zplug)/init.zsh
 
-#
-# Antigen Bundles
-#
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zsh-users/zsh-history-substring-search"
+zplug "zsh-users/zsh-completions"
+zplug "bobsoppe/zsh-ssh-agent", use:ssh-agent.zsh, from:github
+zplug "bhilburn/powerlevel9k",  use:powerlevel9k.zsh-theme
+zplug "plugins/django",     from:oh-my-zsh
+zplug "plugins/git",        from:oh-my-zsh
+zplug "plugins/git-flow",   from:oh-my-zsh
+zplug "plugins/tmux",       from:oh-my-zsh
 
-antigen bundle adb                      # Android Debug Bridge
-antigen bundle aws                      # Amazon Web Services
-antigen bundle django                   # Django
-antigen bundle git                      # Git
-antigen bundle git-flow                 # Support for git-flow completions
-antigen bundle golang                   # Go
-antigen bundle npm                      # Node Package Manager
-antigen bundle nvm                      # Node Virtual Manager
-antigen bundle node                     # Node
-antigen bundle pip                      # Python Package Manager
-antigen bundle python                   # Python
-antigen bundle sbt                      # Simple Build Tool (Scala)
-antigen bundle scala                    # Scala
-antigen bundle ssh-agent                # Auto start SSH Agent
-antigen bundle tmux                     # Tmux stuff
-antigen bundle tmuxinator               # Tmux stuff (I guess...)
-antigen bundle virtualenvwrapper        # Python Virtual Environment Manager
+# Load zplug
+zplug load 
 
-# Third party bundles
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-completions src
-antigen bundle gangleri/pipenv
-
-# Themes
-antigen theme bhilburn/powerlevel9k powerlevel9k
-
-# Apply antigen stuff!
-antigen apply
 
 # Extra zsh-completions from Homebrew
 fpath=($(brew --prefix)/share/zsh-completions $fpath)
@@ -44,13 +25,13 @@ fpath=($(brew --prefix)/share/zsh-completions $fpath)
 # Powerlevel9k settings
 #
 DEFAULT_USER=$USER
-POWERLEVEL9K_MODE="compatible"
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv context dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status time)
 POWERLEVEL9K_SHOW_CHANGESET=true
 POWERLEVEL9K_CHANGESET_HASH_LENGTH=6
 POWERLEVEL9K_VIRTUALENV_BACKGROUND='white'
+
 AWS_DEFAULT_PROFILE="default"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
@@ -95,8 +76,7 @@ AWS_DEFAULT_PROFILE="default"
 bindkey "^X\\x7f" backward-kill-line        # Fix for the non-working CMD-Backspace for deleting the line
 
 # if you do a 'rm *', Zsh will give you a sanity check!
-# setopt RM_STAR_WAIT
-
+setopt RM_STAR_WAIT
 
 unsetopt autopushd  # Normal pushd/popd behaviour
 unsetopt CORRECT    # Disable Zsh spelling corrector

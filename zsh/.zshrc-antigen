@@ -1,0 +1,38 @@
+# Load Antigen
+source $(brew --prefix)/share/antigen/antigen.zsh
+
+# Load the oh-my-zsh library
+antigen use oh-my-zsh
+
+#
+# Antigen Bundles
+#
+
+antigen bundle adb                      # Android Debug Bridge
+antigen bundle aws                      # Amazon Web Services
+antigen bundle django                   # Django
+antigen bundle git                      # Git
+antigen bundle git-flow                 # Support for git-flow completions
+#antigen bundle golang                   # Go
+antigen bundle npm                      # Node Package Manager
+antigen bundle nvm                      # Node Virtual Manager
+antigen bundle node                     # Node
+antigen bundle pip                      # Python Package Manager
+antigen bundle python                   # Python
+#antigen bundle sbt                      # Simple Build Tool (Scala)
+#antigen bundle scala                    # Scala
+antigen bundle ssh-agent                # Auto start SSH Agent
+antigen bundle tmux                     # Tmux stuff
+antigen bundle tmuxinator               # Tmux stuff (I guess...)
+antigen bundle virtualenvwrapper        # Python Virtual Environment Manager
+
+# Third party bundles
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-completions src
+antigen bundle gangleri/pipenv
+
+# Themes
+antigen theme bhilburn/powerlevel9k powerlevel9k
+
+# Apply antigen stuff!
+antigen apply
