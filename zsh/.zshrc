@@ -9,14 +9,13 @@ zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-completions"
 zplug "bobsoppe/zsh-ssh-agent", use:ssh-agent.zsh, from:github
 zplug "bhilburn/powerlevel9k",  use:powerlevel9k.zsh-theme
-zplug "plugins/django",     from:oh-my-zsh
-zplug "plugins/git",        from:oh-my-zsh
-zplug "plugins/git-flow",   from:oh-my-zsh
-zplug "plugins/tmux",       from:oh-my-zsh
+zplug "plugins/django",         from:oh-my-zsh
+zplug "plugins/git",            from:oh-my-zsh
+zplug "plugins/git-flow",       from:oh-my-zsh
+zplug "plugins/tmux",           from:oh-my-zsh
 
 # Load zplug
-zplug load 
-
+zplug load
 
 # Extra zsh-completions from Homebrew
 fpath=($(brew --prefix)/share/zsh-completions $fpath)
@@ -71,9 +70,15 @@ AWS_DEFAULT_PROFILE="default"
 
 #
 # Key bindings
+# http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Standard-Widgets
 # See http://stackoverflow.com/a/29403520/1326249 for iTerm2 bindings
 #
-bindkey "^X\\x7f" backward-kill-line        # Fix for the non-working CMD-Backspace for deleting the line
+bindkey "^X\\x7f" backward-kill-line
+bindkey "^X\\x0b" kill-line
+bindkey "^K"  kill-whole-line
+bindkey "^[b" backward-word
+bindkey "^[f" forward-word
+bindkey "^[d" delete-word
 
 # if you do a 'rm *', Zsh will give you a sanity check!
 setopt RM_STAR_WAIT
