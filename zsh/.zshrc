@@ -1,6 +1,3 @@
-# Antigen
-# source $HOME/.zshenv-antigen
-
 # Zplug
 source $(brew --prefix zplug)/init.zsh
 
@@ -11,7 +8,7 @@ zplug "bobsoppe/zsh-ssh-agent", use:ssh-agent.zsh, from:github
 zplug "bhilburn/powerlevel9k",  use:powerlevel9k.zsh-theme
 zplug "plugins/django",         from:oh-my-zsh
 zplug "plugins/git",            from:oh-my-zsh
-zplug "plugins/git-flow",       from:oh-my-zsh
+zplug "plugins/git-flow-avh",   from:oh-my-zsh
 zplug "plugins/tmux",           from:oh-my-zsh
 
 # Load zplug
@@ -64,6 +61,18 @@ AWS_DEFAULT_PROFILE="default"
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # HIST_STAMPS="mm/dd/yyyy"
+[ -z "$HISTFILE" ] && HISTFILE="$HOME/.zsh_history"
+HISTSIZE=1000
+SAVEHIST=10000
+
+## History command configuration
+setopt extended_history       # record timestamp of command in HISTFILE
+setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_dups       # ignore duplicated commands history list
+setopt hist_ignore_space      # ignore commands that start with space
+setopt hist_verify            # show command with history expansion to user before running it
+setopt inc_append_history     # add commands to HISTFILE in order of execution
+setopt share_history          # share command history data
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -79,9 +88,12 @@ bindkey "^K"  kill-whole-line
 bindkey "^[b" backward-word
 bindkey "^[f" forward-word
 bindkey "^[d" delete-word
+bindkey "^[[1;10D" beginning-of-line
+bindkey "^[[1;10C" end-of-line
+bindkey '^R' history-incremental-search-backward
+bindkey '^F' history-incremental-search-forward
 
-# if you do a 'rm *', Zsh will give you a sanity check!
-setopt RM_STAR_WAIT
+setopt RM_STAR_WAIT             # If you do a 'rm *', Zsh will give you a sanity check!
 
 unsetopt autopushd  # Normal pushd/popd behaviour
 unsetopt CORRECT    # Disable Zsh spelling corrector
