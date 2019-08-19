@@ -1,8 +1,21 @@
 set         nocompatible            " This should always go first!
+filetype    off
+
+" Plugins
+set         rtp+=~/.vim/bundle/Vundle.vim
+call        vundle#begin()
+Plugin      'VundleVim/Vundle.vim'
+Plugin      'vim-airline/vim-airline'
+Plugin      'vim-airline/vim-airline-themes'
+
+call        vundle#end()
+filetype    plugin indent on
+
+let         g:airline_theme='papercolor'
 
 " Color and fonts
 syntax      enable
-colorscheme kalisi
+"colorscheme kalisi
 set         background=dark
 set         guifont=Menlo\ for\ Powerline:h12   " download from https://github.com/abertsch/Menlo-for-Powerline
 set         laststatus=2                        " always display the status line
@@ -47,14 +60,15 @@ set         clipboard=unnamed       " make clipboard behave as expected
 set         wildignore=*.o,.git,*.swp,*.swo,*~,*.pyc,build,*.egg,*.egg/*,*.egg-info/*,dist,pyshared,.tox,.env,**/node_modules/**,**/bower_components/**,
 
 " Autocommands
-autocmd!    BufWritePost ~/.vimrc.local source %                    " source this file whenever it is written to
+autocmd!    BufWritePost ~/.vimrc source %                    " source this file whenever it is written to
 autocmd     BufNewFile,BufRead *.html set filetype=htmldjango       " always use htmldjango for html files
 autocmd     BufWritePre * :%s/\s\+$//e                              " remove trailing spaces before saving buffer
 autocmd     BufRead,BufNewFile *.scss set ft=scss.css
 autocmd     BufNewFile,BufRead *.yml set filetype=yaml softtabstop=2 tabstop=2 shiftwidth=2 expandtab
+autocmd     InsertEnter,InsertLeave * set cul!
 
 " Keybindings
-let         mapleader = ","|                    " remap <leader> to ','
+let         mapleader = ","|                    " remap <leader> to ,
 map         <leader>f mzgg=G`z|                 " reformat the entire file
 nnoremap    <leader>. :|                        " <leader>. writes `:`
 nmap        <leader>nt :NERDTreeToggle %<CR>|   " open NERDTree with ',nt'
@@ -88,6 +102,9 @@ inoremap    <C-j> <ESC>:m .+1<CR>==gi|          " move one line up in insert mod
 inoremap    <C-k> <ESC>:m .-2<CR>==gi|          " move one line down in insert mode
 vnoremap    <C-j> :m '>+1<CR>gv=gv|             " move one line up in visual mode
 vnoremap    <C-k> :m '<-2<CR>gv=gv|             " move one line down in visual mode
+
+imap        jj <ESC>
+
 
 " Disable the arrow keys =)
 " map <up> <nop>
