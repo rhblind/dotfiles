@@ -53,13 +53,7 @@ export VIRTUALENVWRAPPER_PYTHON=$(brew --prefix python)/libexec/bin/python
 # Using GNU getopt
 export FLAGS_GETOPT_CMD="$(brew --prefix gnu-getopt)/bin/getopt"
 
-# Preferred editor for local and remote sessions
-#if [[ -n $SSH_CONNECTION ]]; then
-#  export EDITOR='emacsclient -t'
-#else
-#  export EDITOR='emacsclient -t'
-#fi
-
+# Editors
 export ALTERNATE_EDITOR=""
 export EDITOR="vi -v"
 export VISUAL="code"
@@ -82,8 +76,6 @@ alias tm="tmux" 2>/dev/null
 alias td="tmux detach" 2>/dev/null
 alias gs="git status --short" 2>/dev/null
 alias vim="vi -v" 2>/dev/null
-# alias e="emacsclient -t" 2>/dev/null
-# alias ev="emacsclient -c -a emacs &" 2>/dev/null
 alias pe="pipenv" 2>/dev/null
 
 # Source secrets file
