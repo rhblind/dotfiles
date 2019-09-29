@@ -61,9 +61,7 @@ export FLAGS_GETOPT_CMD="$(brew --prefix gnu-getopt)/bin/getopt"
 #fi
 
 export ALTERNATE_EDITOR=""
-#export EDITOR="emacsclient -t"                  # $EDITOR should open in terminal
 export EDITOR="vi -v"
-#export VISUAL="emacsclient -c -a emacs"         # $VISUAL opens in GUI with non-daemon as alternate
 export VISUAL="code"
 
 #
