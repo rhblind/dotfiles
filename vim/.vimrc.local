@@ -89,9 +89,6 @@ nmap        <silent><silent> <leader>p :set paste<CR>"*p:set nopaste<CR> "Toggle
 vnoremap    <silent> # :call VisualSelection('b')<CR> " pressing # in visual mode search for the current selection
 
 noremap     <leader>n :nohl<CR>|                " clear highligh from last search in normal mode
-inoremap    <leader>n :nohl<CR>|                " clear highligh from last search in insert mode
-vnoremap    <leader>n :nohl<CR>|                " clear highligh from last search in visual mode
-
 vnoremap    <leader>s :sort<CR>|                " <leader>s sorts stuff in visual mode
 
 " Move lines up or down using <C-j> or <C-k>
