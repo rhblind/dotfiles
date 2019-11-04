@@ -2,15 +2,29 @@ set         nocompatible            " This should always go first!
 filetype    off
 
 " Plugins
-set         rtp+=~/.vim/bundle/Vundle.vim
-call        vundle#begin()
-Plugin      'VundleVim/Vundle.vim'
-Plugin      'vim-airline/vim-airline'
-Plugin      'vim-airline/vim-airline-themes'
-Plugin      'rafi/awesome-vim-colorschemes'
-Plugin      'tpope/vim-surround'
-Plugin      'tpope/vim-repeat'
-call        vundle#end()
+call plug#begin('~/.vim/plugged')
+" Visual stuff
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'airblade/vim-gitgutter'
+Plug 'dense-analysis/ale'
+Plug 'scrooloose/nerdtree'
+
+" Command-line fuzzy finder
+" https://github.com/junegunn/fzf.vim
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+
+" Intellisense engine + full language server protocol support
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Elixir plugins
+Plug 'elixir-editors/vim-elixir'
+call plug#end()
 
 filetype    plugin indent on
 
@@ -19,6 +33,7 @@ let         g:airline_theme='papercolor'
 " Color and fonts
 syntax      enable
 colorscheme alduin
+set         termguicolors
 set         t_ut=""                 " fixes bug in background redraw on wls.exe
 set         background=dark
 set         guifont=MesloLGS\ NF:h12
@@ -64,8 +79,8 @@ set         clipboard=unnamed       " make clipboard behave as expected
 set         wildignore=*.o,.git,*.swp,*.swo,*~,*.pyc,build,*.egg,*.egg/*,*.egg-info/*,dist,pyshared,.tox,.env,**/node_modules/**,**/bower_components/**,
 
 " Autocommands
-autocmd!    BufWritePost ~/.vimrc source %                          " source this file whenever it is written to
-autocmd     BufNewFile,BufRead *.html set filetype=htmldjango       " always use htmldjango for html files
+autocmd!    BufWritePost ~/.config/nvim/init.vim  source %          " source this file whenever it is written to
+" autocmd     BufNewFile,BufRead *.html set filetype=htmldjango       " always use htmldjango for html files
 autocmd     BufWritePre * :%s/\s\+$//e                              " remove trailing spaces before saving buffer
 autocmd     BufRead,BufNewFile *.scss set ft=scss.css
 autocmd     BufNewFile,BufRead *.yml set filetype=yaml softtabstop=2 tabstop=2 shiftwidth=2 expandtab
@@ -91,37 +106,22 @@ vnoremap    <silent> # :call VisualSelection('b')<CR> " pressing # in visual mod
 noremap     <leader>n :nohl<CR>|                " clear highligh from last search in normal mode
 vnoremap    <leader>s :sort<CR>|                " <leader>s sorts stuff in visual mode
 
-" Move lines up or down using <C-j> or <C-k>
-nnoremap    <A-j> :m .+1<CR>==|                 " move one line up in normal mode
-nnoremap    <A-k> :m .-2<CR>==|                 " move one line down in normal mode
-inoremap    <A-j> <ESC>:m .+1<CR>==gi|          " move one line up in insert mode
-inoremap    <A-k> <ESC>:m .-2<CR>==gi|          " move one line down in insert mode
-vnoremap    <A-j> :m '>+1<CR>gv=gv|             " move one line up in visual mode
-vnoremap    <A-k> :m '<-2<CR>gv=gv|             " move one line down in visual mode
-
-nnoremap    <C-a> ggVG                          " select all text
-
 imap        jj <ESC>                            " use `jj` as <ESC>
+
+" Move lines up or down using <C-j> or <C-k>
+nnoremap    <C-j> :m .+1<CR>==|                 " move one line up in normal mode
+nnoremap    <C-k> :m .-2<CR>==|                 " move one line down in normal mode
+inoremap    <C-j> <ESC>:m .+1<CR>==gi|          " move one line up in insert mode
+inoremap    <C-k> <ESC>:m .-2<CR>==gi|          " move one line down in insert mode
+vnoremap    <C-j> :m '>+1<CR>gv=gv|             " move one line up in visual mode
+vnoremap    <C-k> :m '<-2<CR>gv=gv|             " move one line down in visual mode
 
 "
 " Plugin configurations
 "
 
-" CTRLSpace setting
-" let         g:ctrlspace_height = 10                         " minimal height
-" let         g:ctrlspace_save_workspace_on_exit = 1          " save workspace on exit
-" let         g:ctrlspace_save_workspace_on_switch = 1        " save workspace on switch
-" let         g:ctrlspace_load_last_workspace_on_start = 1    " load last workspace on start
-" let         g:ctrlsspace_max_search_results = 20            " I don't really need 200 results
-" let         g:ctrlspace_search_timing = [10, 200]           " search timing
-" let         g:ctrlspace_max_files = 200                     " max number of files to display in the plugin window
-" let         g:ctrlspace_ignored_files='**/bower_components,**/node_modeules'
-
-" Neocomplete
-" inoremap    <expr> <CR> pumvisible() ? "\<C-y>" :"\<CR>" " <CR>|                            " accepts the current choice and close the autocomplete box
-" inoremap    <expr><ESC> pumvisible() ? neocomplete#smart_close_popup()."\<C-y>" : "\<ESC>"| " close the popup on <ESC>
-
 " Airline
 let         g:airline#extensions#tabline#enabled = 1        " automatically displays all buffers when there's only one tab open
 let         g:airline#extensions#tabline#fnamemod = ':t'    " only display filename in the tablist
-
+let         g:airline#extensions#coc#enabled = 1            " enable coc integration for airline
+let         g:airline#extensions#ale#enabled = 1            " ale linting engine

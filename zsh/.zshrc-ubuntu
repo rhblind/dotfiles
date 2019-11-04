@@ -93,8 +93,10 @@ unsetopt autopushd  # Normal pushd/popd behaviour
 unsetopt CORRECT    # Disable Zsh spelling corrector
 
 # source zshenv
-[ -f $HOME/.zshenv ] && source $HOME/.zshenv
+# [ -f $HOME/.zshenv ] && source $HOME/.zshenv
 
 # added by travis gem
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
 
+# source fzf if existing
+[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
