@@ -54,7 +54,7 @@ alias vi="nvim" 2>/dev/null
 alias vim"nvim" 2>/dev/null
 alias gs="git status --short" 2>/dev/null
 alias pe="pipenv" 2>/dev/null
-alias e="emacsclient -c -a emacs" 2>/dev/null
+alias e="emacsclient -c -a emacs -n" 2>/dev/null
 
 # Source secrets file
 # source ~/.dotfiles/zsh/.zshenv-secrets
