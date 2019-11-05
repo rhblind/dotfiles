@@ -69,13 +69,16 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
-                                      multiple-cursors
+                                      exunit
+                                      dap-mode
                                       drag-stuff
+                                      dtrt-indent
+                                      multiple-cursors
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '('alchemist)
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -151,12 +154,12 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(("Fira Code"
-                                :size 14
+                                :size 12
                                 :weight medium
                                 :width normal
                                 :powerline-scale 1.1)
                                ("Fira Code Symbol"
-                                :size 14
+                                :size 12
                                 :weight normal
                                 :width normal
                                 :powerline-scale 1.1))
@@ -340,7 +343,10 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  
+
+  ;; Variables
+  (defvar lsp-elixir--config-options (make-hash-table))
+
   ;; Functions
   (defun newline-without-break-of-line ()
     "1. move to end of the line.
@@ -359,12 +365,16 @@ you should place your code here."
 
   (setq vc-follow-symlinks nil)                        ;; Don't follow symlinks, edit them directly
   (setq lsp-ui-doc-enable nil)                         ;; Disable ui-doc popup. Toggle help with ,hh
-  ;; (setq lsp-ui-doc-position 'at-point)                 ;; top, bottom or at-point
   
   ;; Hooks
   (add-hook 'elixir-mode-hook
             (lambda ()
-              (add-hook 'before-save-hook #'lsp-format-buffer nil t)))
+              (add-hook 'before-save-hook #'lsp-format-buffer nil t))  ;; Let elxir-mode format files before save
+            (add-hook 'lsp-after-initialize-hook
+                      (lambda ()
+                        (lsp--set-configuration `(:elixirLS, lsp-elixir--config-options))))  ;; Let Emacs configure elixir-ls language server through entries in .dir-locals.el project file.
+            )
+
   ;; Packages
   (use-package dtrt-indent)                            ;; Auto-detect indent settings from file type
   (use-package drag-stuff                              ;; drag-stuff config
@@ -374,7 +384,7 @@ you should place your code here."
     (drag-stuff-define-keys))
 
   ;; Language server protocol
-  (use package lsp-mode
+  (use-package lsp-mode
        :config
        :hook (python-mode . lsp)
        :hook (elixir-mode . lsp)
@@ -382,10 +392,25 @@ you should place your code here."
   (use-package lsp-ui :commands lsp-ui-mode)
   (use-package company-lsp :commands company-lsp)
   (use-package helm-lsp :commands helm-lsp-workspace-symbol)
-  (use-package dap-mode)
+  ;; (use-package dap-mode
+  ;;   :hook (dap-ui-mode)
+  ;;   :hook (dap-elixir)
+  ;;   )
 
   ;; Keybindings
   (global-set-key (kbd "<C-return>") 'newline-without-break-of-line)
+
+  ;; ExUnit keybindings
+  ;; (with-eval-after-load 'elixir-mode
+  ;;   (spacemacs/declare-prefix-for-mode 'elixir-mode
+  ;;     "mt" "tests" "testing related functionality")
+  ;;   (spacemacs/set-leader-keys-for-major-mode 'elixir-mode
+  ;;     "tb" 'exunit-verify-all
+  ;;     "ta" 'exunit-verify
+  ;;     "tk" 'exunit-rerun
+  ;;     "tt" 'exunit-verify-single
+  ;;     "tu" 'exunit-verify-all-in-umbrella
+  ;;     ))
   )
 
 
@@ -421,11 +446,11 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (drag-stuff git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl multiple-cursors editorconfig web-mode unfill tagedit smeargle slim-mode scss-mode sass-mode pug-mode orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download ob-elixir mwim mmm-mode markdown-toc markdown-mode magit-gitflow magit-popup htmlize helm-gitignore helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flycheck-pos-tip pos-tip flycheck-mix flycheck-credo flycheck evil-magit magit transient git-commit with-editor erlang emmet-mode company-web web-completion-data company-statistics auto-yasnippet yasnippet alchemist company elixir-mode ac-ispell auto-complete zones gnu-elpa-keyring-update spinner evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu evil ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smartparens restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-unimpaired evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-escape goto-chg eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
+    (exunit git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl multiple-cursors editorconfig web-mode unfill tagedit smeargle slim-mode scss-mode sass-mode pug-mode orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download ob-elixir mwim mmm-mode markdown-toc markdown-mode magit-gitflow magit-popup htmlize helm-gitignore helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flycheck-pos-tip pos-tip flycheck-mix flycheck-credo flycheck evil-magit magit transient git-commit with-editor erlang emmet-mode company-web web-completion-data company-statistics auto-yasnippet yasnippet alchemist company elixir-mode ac-ispell auto-complete zones gnu-elpa-keyring-update spinner evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu evil ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smartparens restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-unimpaired evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-escape goto-chg eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:background nil)))))
+ )
 )
