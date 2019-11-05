@@ -332,10 +332,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
     :hook (elixir-mode . lsp-deferred)
     :commands (lsp lsp-deferred))
   (use-package lsp-ui :commands lsp-ui-mode)
-  ; (use-package company-lsp :commands company-lsp)
+  ;; (use-package company-lsp :commands company-lsp)
   (use-package helm-lsp :commands helm-lsp-workspace-symbol)
-  ; (use-package lsp-treemacs :commands lsp-treemacs-error-list)
-  ; dap-mode is for debugging
+  ;; (use-package lsp-treemacs :commands lsp-treemacs-error-list)
+  ;; dap-mode is for debugging
   (use-package dap-mode)
   (use-package dap-elixir)
   )
