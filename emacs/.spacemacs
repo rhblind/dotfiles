@@ -295,7 +295,7 @@ values."
    dotspacemacs-folding-method 'evil
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
-   dotspacemacs-smartparens-strict-mode nil
+   dotspacemacs-smartparens-strict-mode t 
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
@@ -340,7 +340,7 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-
+  
   ;; Functions
   (defun newline-without-break-of-line ()
     "1. move to end of the line.
@@ -358,8 +358,9 @@ you should place your code here."
   (setq mouse-wheel-follow-mouse t)                    ;; Scroll window under mouse
 
   (setq vc-follow-symlinks nil)                        ;; Don't follow symlinks, edit them directly
-  (setq lsp-ui-doc-position 'at-point)                 ;; top, bottom or at-point
-
+  (setq lsp-ui-doc-enable nil)                         ;; Disable ui-doc popup. Toggle help with ,hh
+  ;; (setq lsp-ui-doc-position 'at-point)                 ;; top, bottom or at-point
+  
   ;; Hooks
   (add-hook 'elixir-mode-hook
             (lambda ()
