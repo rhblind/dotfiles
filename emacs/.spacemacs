@@ -341,6 +341,17 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  ;; Functions
+  (defun newline-without-break-of-line ()
+    "1. move to end of the line.
+     2. insert newline with index"
+
+    (interactive)
+    (let ((oldpos (point)))
+      (end-of-line)
+      (newline-and-indent))
+    )
+
   ;; Mouse config
   (setq mouse-wheel-scroll-amount '(2 ((shift) . 1)))  ;; Scroll 2 lines at a time
   (setq mouse-wheel-progressive-speed nil)             ;; Don't accelerate scrolling
@@ -349,6 +360,10 @@ you should place your code here."
   (setq vc-follow-symlinks nil)                        ;; Don't follow symlinks, edit them directly
   (setq lsp-ui-doc-position 'at-point)                 ;; top, bottom or at-point
 
+  ;; Hooks
+  (add-hook 'elixir-mode-hook
+            (lambda ()
+              (add-hook 'before-save-hook #'lsp-format-buffer nil t)))
   ;; Packages
   (use-package dtrt-indent)                            ;; Auto-detect indent settings from file type
   (use-package drag-stuff                              ;; drag-stuff config
@@ -368,7 +383,12 @@ you should place your code here."
   (use-package helm-lsp :commands helm-lsp-workspace-symbol)
   (use-package dap-mode)
 
+  ;; Keybindings
+  (global-set-key (kbd "<C-return>") 'newline-without-break-of-line)
   )
+
+
+
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
