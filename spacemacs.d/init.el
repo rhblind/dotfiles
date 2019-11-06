@@ -51,7 +51,6 @@ values."
              ranger-cleanup-on-disable t
              ranger-ignored-extensions '("mkv", "iso", "mp4", "flv"))
      org
-     themes-megapack
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -84,8 +83,10 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
+                                      all-the-icons
                                       exunit
                                       dap-mode
+                                      doom-themes
                                       drag-stuff
                                       dtrt-indent
                                       multiple-cursors
@@ -381,11 +382,15 @@ you should place your code here."
       (end-of-line)
       (newline-and-indent))
     )
-
+  (treemacs-resize-icons 16)
+  (setq user-full-name "Rolf Håvard Blindheim"
+        user-email-address ""                          ;; TODO: Figure out how to use different profiles
+        )
   (setq mouse-wheel-scroll-amount '(2 ((shift) . 1)))  ;; Scroll 2 lines at a time
   (setq mouse-wheel-progressive-speed nil)             ;; Don't accelerate scrolling
   (setq mouse-wheel-follow-mouse t)                    ;; Scroll window under mouse
   (setq vc-follow-symlinks nil)                        ;; Don't follow symlinks, edit them directly
+  (setq ws-butler-global-mode t)                       ;; Enable ws-butler globally
   (setq lsp-ui-doc-enable nil)                         ;; Disable ui-doc popup. Toggle help with ,hh
   (setq projectile-project-search-path '("~/Documents"))
   ;; (setq projectile-globally-ignored-files '())
@@ -420,7 +425,6 @@ you should place your code here."
   ;; Packages
   (use-package dtrt-indent)                            ;; Auto-detect indent settings from file type
   (use-package drag-stuff                              ;; drag-stuff config
-    :diminish 'drag-stuff-mode
     :config
     (drag-stuff-global-mode t)
     (drag-stuff-define-keys))
@@ -428,7 +432,6 @@ you should place your code here."
   ;; Language server protocol
   (require 'lsp-python-ms)
   (use-package lsp-mode
-    :diminish 'lsp-mode
     :config
     :hook (python-mode . lsp)
     :hook (elixir-mode . lsp)
@@ -443,7 +446,7 @@ you should place your code here."
 
   ;; Keybindings
   (global-set-key (kbd "<C-return>") 'newline-without-break-of-line)
-  (evil-ex-define-cmd "q[uit]" 'evil-delete-buffer)    ;; Redefine :q to delete buffer instead of exiting emacs 
+  (evil-ex-define-cmd "q[uit]" 'evil-delete-buffer)    ;; Redefine :q to delete buffer instead of exiting emacs
 
   ;; ExUnit keybindings
   (with-eval-after-load 'elixir-mode
