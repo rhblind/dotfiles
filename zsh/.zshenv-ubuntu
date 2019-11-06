@@ -6,6 +6,9 @@
 CLICOLOR=1                          # Enable colorized output
 CASE_SENSITIVE="true"               # Uncomment the following line to use case-sensitive completion.
 
+export TERM=xterm-256color
+
+
 # Docker remote host
 # export DOCKER_HOST="tcp://localhost:2375"
 
