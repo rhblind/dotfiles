@@ -250,7 +250,7 @@ values."
    dotspacemacs-enable-paste-transient-state nil
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
-   dotspacemacs-which-key-delay 0.4
+   dotspacemacs-which-key-delay 0.3
    ;; Which-key frame position. Possible values are `right', `bottom' and
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the
    ;; right; if there is insufficient space it displays it at the bottom.
@@ -262,7 +262,7 @@ values."
    dotspacemacs-loading-progress-bar t
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup t
+   dotspacemacs-fullscreen-at-startup nil 
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
    dotspacemacs-fullscreen-use-non-native nil
@@ -387,7 +387,7 @@ you should place your code here."
   (setq mouse-wheel-follow-mouse t)                    ;; Scroll window under mouse
   (setq vc-follow-symlinks nil)                        ;; Don't follow symlinks, edit them directly
   (setq lsp-ui-doc-enable nil)                         ;; Disable ui-doc popup. Toggle help with ,hh
-  (setq projectile-project-search-path '("~/Documents" "~/workspace"))
+  (setq projectile-project-search-path '("~/Documents"))
   ;; (setq projectile-globally-ignored-files '())
   ;; (setq projectile-globally-ignored-file-suffixes '())
   (setq projectile-globally-ignored-directories '(
@@ -443,6 +443,7 @@ you should place your code here."
 
   ;; Keybindings
   (global-set-key (kbd "<C-return>") 'newline-without-break-of-line)
+  (evil-ex-define-cmd "q[uit]" 'evil-delete-buffer)    ;; Redefine :q to delete buffer instead of exiting emacs 
 
   ;; ExUnit keybindings
   (with-eval-after-load 'elixir-mode
