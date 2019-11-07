@@ -46,11 +46,13 @@ values."
      markdown
      (ranger :variables
              ranger-show-preview t
+             ranger-show-literal nil
              ranger-show-hidden t
              ranger-cleanup-eagerly t
              ranger-cleanup-on-disable t
              ranger-ignored-extensions '("mkv", "iso", "mp4", "flv"))
      org
+     treemacs
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -351,6 +353,8 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   (require 'iso-transl) ;; Enable "dead keys" like "~" and so on..
+  (setq auto-resume-layouts t      ;; Automatically resume last saved layout
+        )
   )
 
 (defun dotspacemacs/user-config ()
@@ -382,9 +386,16 @@ you should place your code here."
       (end-of-line)
       (newline-and-indent))
     )
-  (treemacs-resize-icons 16)
+
+  (display-time-mode 1)                                ;; Display time in the powerline bar
+  (global-unset-key [down-mouse-1])                    ;; No dragging nonsense
+  (global-set-key [down-mouse-1] 'mouse-select-window) ;; Select window with mouse click
+  (treemacs-resize-icons 16)                           ;; Treemacs icon size
+
   (setq user-full-name "Rolf Håvard Blindheim"
         user-email-address ""                          ;; TODO: Figure out how to use different profiles
+        display-time-24hr-format t                     ;; Use 24h clock
+        layouts-enable-autosave t                      ;; Automatically save layouts
         )
   (setq mouse-wheel-scroll-amount '(2 ((shift) . 1)))  ;; Scroll 2 lines at a time
   (setq mouse-wheel-progressive-speed nil)             ;; Don't accelerate scrolling
