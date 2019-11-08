@@ -1,5 +1,6 @@
 (defun fira-code-mode--make-alist (list)
-  "Generate prettify-symbols alist from LIST."
+  "Generate prettify-symbols alist from LIST.
+Taken from https://github.com/tonsky/FiraCode/wiki/Emacs-instructions#using-prettify-symbols"
   (let ((idx -1))
     (mapcar
      (lambda (s)

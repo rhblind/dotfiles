@@ -37,8 +37,10 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      helm
-     auto-completion
-     ;; company-mode
+     (auto-completion :variables
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-sort-by-usage t)
      better-defaults
      emacs-lisp
      git
@@ -369,13 +371,19 @@ you should place your code here."
   (let ((config-files
          ;; Add your config files here (relative to `dotspacemacs-directory')
          '(
-           "config/fonts/fira-code-mode.el"  ;; https://github.com/tonsky/FiraCode/wiki/Emacs-instructions#using-prettify-symbols
+           "config/fonts/fira-code-mode.el"
+           "config/keybindings/backward-kill-word.el"
            )))
     (dolist (file config-files)
       (load-file (expand-file-name file dotspacemacs-directory))))
 
   ;; Variables
-  (defvar lsp-elixir--config-options (make-hash-table))
+  (defconst rolf--type-env
+    (getenv "CUSTOM_TYPE_ENV")
+    "work or private environment")
+  (defvar lsp-elixir--config-options
+    (make-hash-table)
+    "Let Emacs configure elixir-ls language server through entries in .dir-locals.el project file.")
 
   ;; Functions
   (defun newline-without-break-of-line ()
@@ -387,26 +395,26 @@ you should place your code here."
       (newline-and-indent))
     )
 
-  (display-time-mode 1)                                ;; Display time in the powerline bar
-  (global-unset-key [down-mouse-1])                    ;; No dragging nonsense
-  (global-set-key [down-mouse-1] 'mouse-select-window) ;; Select window with mouse click
-  (treemacs-resize-icons 16)                           ;; Treemacs icon size
+  (display-time-mode 1)                                     ;; Display time in the powerline bar
+  (global-company-mode)                                     ;; Enable company-mode globally
+  (global-unset-key [down-mouse-1])                         ;; No dragging nonsense
+  (global-set-key [down-mouse-1] 'mouse-select-window)      ;; Select window with mouse click
+  (treemacs-resize-icons 16)                                ;; Treemacs icon size
 
-  (setq user-full-name "Rolf Håvard Blindheim"
-        user-email-address ""                          ;; TODO: Figure out how to use different profiles
-        display-time-24hr-format t                     ;; Use 24h clock
-        layouts-enable-autosave t                      ;; Automatically save layouts
-        )
-  (setq mouse-wheel-scroll-amount '(2 ((shift) . 1)))  ;; Scroll 2 lines at a time
-  (setq mouse-wheel-progressive-speed nil)             ;; Don't accelerate scrolling
-  (setq mouse-wheel-follow-mouse t)                    ;; Scroll window under mouse
-  (setq vc-follow-symlinks nil)                        ;; Don't follow symlinks, edit them directly
-  (setq ws-butler-global-mode t)                       ;; Enable ws-butler globally
-  (setq lsp-ui-doc-enable nil)                         ;; Disable ui-doc popup. Toggle help with ,hh
-  (setq projectile-project-search-path '("~/Documents"))
-  ;; (setq projectile-globally-ignored-files '())
-  ;; (setq projectile-globally-ignored-file-suffixes '())
-  (setq projectile-globally-ignored-directories '(
+  (setq display-time-24hr-format t                          ;; Use 24h clock
+        layouts-enable-autosave t                           ;; Automatically save layouts
+        lsp-ui-doc-enable nil                               ;; Disable ui-doc popup. Toggle help with ,hh
+        mouse-wheel-follow-mouse t                          ;; Scroll window under mouse
+        mouse-wheel-progressive-speed nil                   ;; Don't accelerate scrolling
+        mouse-wheel-scroll-amount '(2 ((shift) . 1))        ;; Scroll 2 lines at a time
+        user-full-name "Rolf Håvard Blindheim"
+        user-email-address "rhblind@gmail.com"
+        vc-follow-symlinks nil                              ;; Don't follow symlinks, edit them directly
+        ws-butler-global-mode t                             ;; Enable ws-butler globally
+        projectile-project-search-path '("~/Documents")
+        projectile-globally-ignored-files '()
+        projectile-globally-ignored-file-suffixes '()
+        projectile-globally-ignored-directories '(
                                                   ".git"
                                                   ".idea"
                                                   ".elixir_ls"
@@ -415,6 +423,8 @@ you should place your code here."
                                                   ".pytest_cache"
                                                   "_build"
                                                   ))
+  (cond ((eq rolf--type-env "work")
+         (setq user-email-address "rolf.havard.blindheimi@intility.no")))
 
   (when (spacemacs/system-is-mac)
     (setq lsp-python-ms-executable
@@ -429,7 +439,7 @@ you should place your code here."
               (add-hook 'before-save-hook #'lsp-format-buffer nil))  ;; Let elxir-mode format files before save
             (add-hook 'lsp-after-initialize-hook
                       (lambda ()
-                        (lsp--set-configuration `(:elixirLS, lsp-elixir--config-options))))  ;; Let Emacs configure elixir-ls language server through entries in .dir-locals.el project file.
+                        (lsp--set-configuration `(:elixirLS, lsp-elixir--config-options))))  
             )
   (add-hook 'prog-mode-hook 'fira-code-mode)           ;; Enable fira-code ligatures in programming modes
 
@@ -457,6 +467,7 @@ you should place your code here."
 
   ;; Keybindings
   (global-set-key (kbd "<C-return>") 'newline-without-break-of-line)
+  (global-set-key (kbd "<C-backspace>") 'aborn/backward-kill-word)
   (evil-ex-define-cmd "q[uit]" 'evil-delete-buffer)    ;; Redefine :q to delete buffer instead of exiting emacs
 
   ;; ExUnit keybindings
@@ -505,7 +516,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (reveal-in-osx-finder osx-trash osx-dictionary osx-clipboard launchctl git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl multiple-cursors editorconfig web-mode unfill tagedit smeargle slim-mode scss-mode sass-mode pug-mode orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download ob-elixir mwim mmm-mode markdown-toc markdown-mode magit-gitflow magit-popup htmlize helm-gitignore helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flycheck-pos-tip pos-tip flycheck-mix flycheck-credo flycheck evil-magit magit transient git-commit with-editor erlang emmet-mode company-web web-completion-data company-statistics auto-yasnippet yasnippet alchemist company elixir-mode ac-ispell auto-complete zones gnu-elpa-keyring-update spinner evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu evil ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smartparens restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-unimpaired evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-escape goto-chg eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
+    (company-quickhelp git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl multiple-cursors editorconfig web-mode unfill tagedit smeargle slim-mode scss-mode sass-mode pug-mode orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download ob-elixir mwim mmm-mode markdown-toc markdown-mode magit-gitflow magit-popup htmlize helm-gitignore helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flycheck-pos-tip pos-tip flycheck-mix flycheck-credo flycheck evil-magit magit transient git-commit with-editor erlang emmet-mode company-web web-completion-data company-statistics auto-yasnippet yasnippet alchemist company elixir-mode ac-ispell auto-complete zones gnu-elpa-keyring-update spinner evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu evil ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smartparens restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-unimpaired evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-escape goto-chg eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
