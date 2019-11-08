@@ -373,6 +373,7 @@ you should place your code here."
          '(
            "config/fonts/fira-code-mode.el"
            "config/keybindings/backward-kill-word.el"
+           "config/misc/ad-timestamp-message.el"
            ;; "config/vc/magit-pretty-graph.el"
            )))
     (dolist (file config-files)
@@ -396,6 +397,7 @@ you should place your code here."
       (newline-and-indent))
     )
 
+  (advice-add 'message :before 'sh/ad-timestamp-message)    ;; Add timestamp to *Messages* buffer
   (display-time-mode 1)                                     ;; Display time in the powerline bar
   (global-company-mode)                                     ;; Enable company-mode globally
   (global-unset-key [down-mouse-1])                         ;; No dragging nonsense
