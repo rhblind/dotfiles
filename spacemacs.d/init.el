@@ -373,6 +373,7 @@ you should place your code here."
          '(
            "config/fonts/fira-code-mode.el"
            "config/keybindings/backward-kill-word.el"
+           ;; "config/vc/magit-pretty-graph.el"
            )))
     (dolist (file config-files)
       (load-file (expand-file-name file dotspacemacs-directory))))
