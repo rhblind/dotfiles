@@ -36,33 +36,25 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     helm
      (auto-completion :variables
-                      auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip t
+                      auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-sort-by-usage t)
      better-defaults
+     django
+     (elixir :variables
+             elixir-backend 'lsp
+             elixir-ls-path "~/.local/opt/elixir-ls")
      emacs-lisp
+     erlang
      git
-     shell
-     markdown
-     (ranger :variables
-             ranger-show-preview t
-             ranger-show-literal nil
-             ranger-show-hidden t
-             ranger-cleanup-eagerly t
-             ranger-cleanup-on-disable t
-             ranger-ignored-extensions '("mkv", "iso", "mp4", "flv"))
-     org
-     treemacs
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
-     ;; spell-checking
-     syntax-checking
-     version-control
-     lsp
+     helm
      html
+     (javascript :variables
+                 javascript-disable-tern-port-files nil)
+     lsp
+     markdown
+     org
      (python :variables
              python-backend 'lsp
              python-lsp-server 'mspyls
@@ -71,16 +63,26 @@ values."
              python-test-runner '(pytest nose)
              python-formatter 'yapf
              python-enable-yapf-format-on-save t)
-     django
-     erlang
-     (elixir :variables
-             elixir-backend 'lsp
-             elixir-ls-path "~/.local/opt/elixir-ls")
+     (ranger :variables
+             ranger-show-preview t
+             ranger-show-literal nil
+             ranger-show-hidden t
+             ranger-cleanup-eagerly t
+             ranger-cleanup-on-disable t
+             ranger-ignored-extensions '("mkv", "iso", "mp4", "flv"))
+     semantic
+     shell
+     ;; (shell :variables
+     ;;        shell-default-height 30
+     ;;        shell-default-position 'bottom)
+     (spell-checking :variables
+                     spell-checking-enable-by-default nil
+                     enable-flyspell-auto-completion t)
+     syntax-checking
+     treemacs
+     version-control
      yaml
      windows-scripts
-     (osx :variables
-          osx-option-as 'meta
-          osx-right-option-as 'none)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -107,6 +109,13 @@ values."
    ;; them if they become unused. `all' installs *all* packages supported by
    ;; Spacemacs and never uninstall them. (default is `used-only')
    dotspacemacs-install-packages 'used-only)
+
+  ;; OS-specific layers
+  (when (spacemacs/system-is-mac)
+    (append dotspacemacs-configuration-layers
+            '((osx :variables
+                      osx-option-as 'meta
+                      osx-right-option-as 'none))))
   )
 
 (defun dotspacemacs/init ()
@@ -225,7 +234,7 @@ values."
    dotspacemacs-display-default-layout nil
    ;; If non nil then the last auto saved layouts are resume automatically upon
    ;; start. (default nil)
-   dotspacemacs-auto-resume-layouts nil
+   dotspacemacs-auto-resume-layouts t
    ;; Size (in MB) above which spacemacs will prompt to open the large file
    ;; literally to avoid performance issues. Opening a file literally means that
    ;; no major mode or minor modes are active. (default is 1)
@@ -404,6 +413,8 @@ you should place your code here."
   (global-set-key [down-mouse-1] 'mouse-select-window)      ;; Select window with mouse click
   (treemacs-resize-icons 16)                                ;; Treemacs icon size
 
+  (setq default js2-basic-offset 2
+        js-indent-level 2)
   (setq display-time-24hr-format t                          ;; Use 24h clock
         layouts-enable-autosave t                           ;; Automatically save layouts
         lsp-ui-doc-enable nil                               ;; Disable ui-doc popup. Toggle help with ,hh
@@ -519,7 +530,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (company-quickhelp git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl multiple-cursors editorconfig web-mode unfill tagedit smeargle slim-mode scss-mode sass-mode pug-mode orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download ob-elixir mwim mmm-mode markdown-toc markdown-mode magit-gitflow magit-popup htmlize helm-gitignore helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flycheck-pos-tip pos-tip flycheck-mix flycheck-credo flycheck evil-magit magit transient git-commit with-editor erlang emmet-mode company-web web-completion-data company-statistics auto-yasnippet yasnippet alchemist company elixir-mode ac-ispell auto-complete zones gnu-elpa-keyring-update spinner evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu evil ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smartparens restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-unimpaired evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-escape goto-chg eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
+    (stickyfunc-enhance srefactor nodejs-repl livid-mode skewer-mode json-navigator hierarchy json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc flyspell-popup flyspell-correct-helm flyspell-correct company-tern tern auto-dictionary git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl multiple-cursors editorconfig web-mode unfill tagedit smeargle slim-mode scss-mode sass-mode pug-mode orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download ob-elixir mwim mmm-mode markdown-toc markdown-mode magit-gitflow magit-popup htmlize helm-gitignore helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flycheck-pos-tip pos-tip flycheck-mix flycheck-credo flycheck evil-magit magit transient git-commit with-editor erlang emmet-mode company-web web-completion-data company-statistics auto-yasnippet yasnippet alchemist company elixir-mode ac-ispell auto-complete zones gnu-elpa-keyring-update spinner evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu evil ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smartparens restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-unimpaired evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-escape goto-chg eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -527,3 +538,4 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  )
 )
+    
