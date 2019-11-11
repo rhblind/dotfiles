@@ -82,7 +82,8 @@ values."
      treemacs
      (version-control :variables
                       version-control-diff-side 'left
-                      version-control-diff-tool 'git-gutter+)
+                      version-control-global-margin t
+                      version-control-diff-tool 'git-gutter)
      yaml
      windows-scripts
      )
@@ -368,6 +369,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (require 'iso-transl)            ;; Enable "dead keys" like "~" and so on..
   (setq auto-resume-layouts t      ;; Automatically resume last saved layout
         )
+  (when (spacemacs/system-is-mac)
+    (setq insert-directory-program "/usr/local/bin/gls"
+          dired-listing-switches "-aBhl --group-directories-first"))
   )
 
 (defun dotspacemacs/user-config ()
@@ -384,6 +388,7 @@ you should place your code here."
          '(
            "config/fonts/fira-code-mode.el"
            "config/keybindings/backward-kill-word.el"
+           "config/keybindings/newline-without-break-of-line.el"
            "config/misc/ad-timestamp-message.el"
            ;; "config/vc/magit-pretty-graph.el"
            )))
@@ -398,16 +403,6 @@ you should place your code here."
     (make-hash-table)
     "Let Emacs configure elixir-ls language server through entries in .dir-locals.el project file.")
 
-  ;; Functions
-  (defun newline-without-break-of-line ()
-    "1. move to end of the line.
-     2. insert newline with index"
-    (interactive)
-    (let ((oldpos (point)))
-      (end-of-line)
-      (newline-and-indent))
-    )
-
   (advice-add 'message :before 'sh/ad-timestamp-message)    ;; Add timestamp to *Messages* buffer
   (display-time-mode 1)                                     ;; Display time in the powerline bar
   (global-company-mode)                                     ;; Enable company-mode globally
@@ -415,8 +410,8 @@ you should place your code here."
   (global-set-key [down-mouse-1] 'mouse-select-window)      ;; Select window with mouse click
   (treemacs-resize-icons 16)                                ;; Treemacs icon size
 
-  (setq default js2-basic-offset 2
-        js-indent-level 2)
+  ;; (setq default js2-basic-offset 2
+  ;;       js-indent-level 2)
   (setq display-time-24hr-format t                          ;; Use 24h clock
         layouts-enable-autosave t                           ;; Automatically save layouts
         lsp-ui-doc-enable nil                               ;; Disable ui-doc popup. Toggle help with ,hh
@@ -427,6 +422,7 @@ you should place your code here."
         user-email-address "rhblind@gmail.com"
         vc-follow-symlinks nil                              ;; Don't follow symlinks, edit them directly
         ws-butler-global-mode t                             ;; Enable ws-butler globally
+        projectile-enable-caching t                         ;; Let projectile cache files
         projectile-project-search-path '("~/Documents")
         ;; projectile-globally-ignored-files '()
         ;; projectile-globally-ignored-file-suffixes '()
