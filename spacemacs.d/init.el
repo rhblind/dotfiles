@@ -114,8 +114,8 @@ values."
   (when (spacemacs/system-is-mac)
     (append dotspacemacs-configuration-layers
             '((osx :variables
-                      osx-option-as 'meta
-                      osx-right-option-as 'none))))
+                   osx-option-as 'meta
+                   osx-right-option-as 'none))))
   )
 
 (defun dotspacemacs/init ()
@@ -363,7 +363,7 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  (require 'iso-transl) ;; Enable "dead keys" like "~" and so on..
+  (require 'iso-transl)            ;; Enable "dead keys" like "~" and so on..
   (setq auto-resume-layouts t      ;; Automatically resume last saved layout
         )
   )
@@ -426,8 +426,8 @@ you should place your code here."
         vc-follow-symlinks nil                              ;; Don't follow symlinks, edit them directly
         ws-butler-global-mode t                             ;; Enable ws-butler globally
         projectile-project-search-path '("~/Documents")
-        projectile-globally-ignored-files '()
-        projectile-globally-ignored-file-suffixes '()
+        ;; projectile-globally-ignored-files '()
+        ;; projectile-globally-ignored-file-suffixes '()
         projectile-globally-ignored-directories '(
                                                   ".git"
                                                   ".idea"
