@@ -80,7 +80,9 @@ values."
                      enable-flyspell-auto-completion t)
      syntax-checking
      treemacs
-     version-control
+     (version-control :variables
+                      version-control-diff-side 'left
+                      version-control-diff-tool 'git-gutter+)
      yaml
      windows-scripts
      )
