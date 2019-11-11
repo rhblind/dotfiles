@@ -403,15 +403,6 @@ you should place your code here."
     (make-hash-table)
     "Let Emacs configure elixir-ls language server through entries in .dir-locals.el project file.")
 
-  (advice-add 'message :before 'sh/ad-timestamp-message)    ;; Add timestamp to *Messages* buffer
-  (display-time-mode 1)                                     ;; Display time in the powerline bar
-  (global-company-mode)                                     ;; Enable company-mode globally
-  (global-unset-key [down-mouse-1])                         ;; No dragging nonsense
-  (global-set-key [down-mouse-1] 'mouse-select-window)      ;; Select window with mouse click
-  (treemacs-resize-icons 16)                                ;; Treemacs icon size
-
-  ;; (setq default js2-basic-offset 2
-  ;;       js-indent-level 2)
   (setq display-time-24hr-format t                          ;; Use 24h clock
         layouts-enable-autosave t                           ;; Automatically save layouts
         lsp-ui-doc-enable nil                               ;; Disable ui-doc popup. Toggle help with ,hh
@@ -445,6 +436,13 @@ you should place your code here."
     (setq lsp-python-ms-executable
           "~/.local/opt/python-language-server/output/bin/Release/linux-64/publish/Microsoft.Python.LanguageServer"))
 
+  (advice-add 'message :before 'sh/ad-timestamp-message)    ;; Add timestamp to *Messages* buffer
+  (display-time-mode 1)                                     ;; Display time in the powerline bar
+  (global-company-mode)                                     ;; Enable company-mode globally
+  (global-unset-key [down-mouse-1])                         ;; No dragging nonsense
+  (global-set-key [down-mouse-1] 'mouse-select-window)      ;; Select window with mouse click
+  (treemacs-resize-icons 16)                                ;; Treemacs icon size
+  
   ;; Hooks
   (add-hook 'elixir-mode-hook
             (lambda ()
