@@ -466,7 +466,6 @@ you should place your code here."
                       (lambda ()
                         (lsp--set-configuration `(:elixirLS, lsp-elixir--config-options))))
             )
-  (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)   ;; Enable gitflow plugin for magit
   (add-hook 'prog-mode-hook 'fira-code-mode)           ;; Enable fira-code ligatures in programming modes
 
   ;; Packages
@@ -509,6 +508,10 @@ you should place your code here."
   (global-set-key (kbd "<C-return>") 'newline-without-break-of-line)
   (global-set-key (kbd "<C-backspace>") 'aborn/backward-kill-word)
   (evil-ex-define-cmd "q[uit]" 'evil-delete-buffer)    ;; Redefine :q to delete buffer instead of exiting emacs
+
+  (with-eval-after-load 'magit-mode
+    (spacemacs/set-leader-keys-for-major-mode 'magit-mode
+      "gF" 'magit-gitflow-popup))
 
   ;; ExUnit keybindings
   (with-eval-after-load 'elixir-mode
