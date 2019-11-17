@@ -403,7 +403,8 @@ you should place your code here."
          '(
            "config/fonts/fira-code-mode.el"
            "config/keybindings/backward-kill-word.el"
-           "config/keybindings/newline-without-break-of-line.el"
+           "config/keybindings/newline-above.el"
+           "config/keybindings/newline-below.el"
            "config/misc/ad-timestamp-message.el"
            ;; "config/vc/magit-pretty-graph.el"
            )))
@@ -505,7 +506,8 @@ you should place your code here."
     (require 'dap-python))
 
   ;; Keybindings
-  (global-set-key (kbd "<C-return>") 'newline-without-break-of-line)
+  (global-set-key (kbd "<C-return>") 'newline-below)
+  (global-set-key (kbd "<S-return>") 'newline-above)
   (global-set-key (kbd "<C-backspace>") 'aborn/backward-kill-word)
   (evil-ex-define-cmd "q[uit]" 'evil-delete-buffer)    ;; Redefine :q to delete buffer instead of exiting emacs
 
