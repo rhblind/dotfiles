@@ -27,7 +27,7 @@ values."
    ;; If non-nil layers with lazy install support are lazy installed.
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '()
+   dotspacemacs-configuration-layer-path '() ;; check out https://github.com/ekaschalk/.spacemacs.d for configuration
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
@@ -45,7 +45,7 @@ values."
      django
      (elixir :variables
              elixir-backend 'lsp
-             elixir-ls-path "~/.local/opt/elixir-ls")
+             elixir-ls-path "~/.local/opt/elixir-ls/release")
      emacs-lisp
      erlang
      git
@@ -53,11 +53,19 @@ values."
      html
      (javascript :variables
                  javascript-disable-tern-port-files nil)
+     (json :variables
+           js-indent-level 2
+           json-fmt-tool 'web-beautify
+           json-fmt-on-save t)
      lsp
+     ;; (markdown :variables
+     ;;           markdown-live-preview-engine 'vmd)
      markdown
      (multiple-cursors :variables
                        multiple-cursors-backend 'evil-mc)
-     org
+     (org :variables
+          org-enable-reveal-js-support t
+          org-projectile-file "TODO.org")
      (osx :variables
           osx-option-as 'meta
           osx-right-option-as 'none)
@@ -288,7 +296,7 @@ values."
    dotspacemacs-loading-progress-bar t
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup nil 
+   dotspacemacs-fullscreen-at-startup nil
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
    dotspacemacs-fullscreen-use-non-native nil
@@ -340,7 +348,7 @@ values."
    dotspacemacs-folding-method 'evil
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
-   dotspacemacs-smartparens-strict-mode t 
+   dotspacemacs-smartparens-strict-mode t
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
@@ -377,8 +385,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   (require 'iso-transl)            ;; Enable "dead keys" like "~" and so on..
 
-  (setq auto-resume-layouts t      ;; Automatically resume last saved layout
-        )
+  (setq auto-resume-layouts t)      ;; Automatically resume last saved layout
   (when (spacemacs/system-is-mac)
     (setq insert-directory-program "/usr/local/bin/gls"
           ;; TODO - Check if locate can work with OS X after
@@ -430,7 +437,7 @@ you should place your code here."
         vc-follow-symlinks nil                              ;; Don't follow symlinks, edit them directly
         ws-butler-global-mode t                             ;; Enable ws-butler globally
         projectile-enable-caching t                         ;; Let projectile cache files
-        projectile-project-search-path '("~/Documents")
+        projectile-project-search-path '("~/Documents/workspace")
         ;; projectile-globally-ignored-files '()
         ;; projectile-globally-ignored-file-suffixes '()
         projectile-globally-ignored-directories '(
@@ -515,6 +522,16 @@ you should place your code here."
     (spacemacs/set-leader-keys-for-major-mode 'magit-mode
       "gF" 'magit-gitflow-popup))
 
+  ;; Org mode
+  (with-eval-after-load 'org
+    (setq org-re-reveal-root "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/js/reveal.min.js"))
+  (with-eval-after-load 'org-agenda
+    (require 'org-projectile)
+    (mapcar '(lambda (file)
+               (when (file-exists-p file)
+                 (push file org-agenda-files)))
+            (org-projectils-todo-files)))
+
   ;; ExUnit keybindings
   (with-eval-after-load 'elixir-mode
     (spacemacs/declare-prefix-for-mode 'elixir-mode
@@ -561,7 +578,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (reveal-in-osx-finder osx-trash osx-dictionary osx-clipboard launchctl git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl multiple-cursors editorconfig web-mode unfill tagedit smeargle slim-mode scss-mode sass-mode pug-mode orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download ob-elixir mwim mmm-mode markdown-toc markdown-mode magit-gitflow magit-popup htmlize helm-gitignore helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flycheck-pos-tip pos-tip flycheck-mix flycheck-credo flycheck evil-magit magit transient git-commit with-editor erlang emmet-mode company-web web-completion-data company-statistics auto-yasnippet yasnippet alchemist company elixir-mode ac-ispell auto-complete zones gnu-elpa-keyring-update spinner evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu evil ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smartparens restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-unimpaired evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-escape goto-chg eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
+    (vmd-mode git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl multiple-cursors editorconfig web-mode unfill tagedit smeargle slim-mode scss-mode sass-mode pug-mode orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download ob-elixir mwim mmm-mode markdown-toc markdown-mode magit-gitflow magit-popup htmlize helm-gitignore helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flycheck-pos-tip pos-tip flycheck-mix flycheck-credo flycheck evil-magit magit transient git-commit with-editor erlang emmet-mode company-web web-completion-data company-statistics auto-yasnippet yasnippet alchemist company elixir-mode ac-ispell auto-complete zones gnu-elpa-keyring-update spinner evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu evil ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smartparens restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-unimpaired evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-escape goto-chg eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -569,4 +586,4 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  )
 )
-    
+

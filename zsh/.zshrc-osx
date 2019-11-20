@@ -1,12 +1,14 @@
 # Plugins
 plugins=(
     django
+    fzf
     git
     git-flow-avh
     history-substring-search
     mix
     oc
     pipenv
+    ripgrep
     tmux
     ssh-agent
     zsh-completions
