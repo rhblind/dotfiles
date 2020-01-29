@@ -462,6 +462,7 @@ you should place your code here."
   (advice-add 'message :before 'sh/ad-timestamp-message)    ;; Add timestamp to *Messages* buffer
   (display-time-mode 1)                                     ;; Display time in the powerline bar
   (global-company-mode)                                     ;; Enable company-mode globally
+  (global-display-line-numbers-mode)
   (global-unset-key [down-mouse-1])                         ;; No dragging nonsense
   (global-set-key [down-mouse-1] 'mouse-select-window)      ;; Select window with mouse click
   (treemacs-resize-icons 16)                                ;; Treemacs icon size
