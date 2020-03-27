@@ -33,8 +33,8 @@ fi
 #fi
 
 export ALTERNATE_EDITOR=""
-export EDITOR="emacsclient -t"                  # $EDITOR should open in terminal
-export VISUAL="emacsclient -c -a emacs"         # $VISUAL opens in GUI with non-daemon as alternate
+export EDITOR="emacsclient -t -a emacs -nw"     # $EDITOR should open in terminal
+export VISUAL="emacsclient -c -a emacs -n"      # $VISUAL opens in GUI with non-daemon as alternate
 
 #
 # Aliases
@@ -57,7 +57,8 @@ alias vi="nvim" 2>/dev/null
 alias vim"nvim" 2>/dev/null
 alias gs="git status --short" 2>/dev/null
 alias pe="pipenv" 2>/dev/null
-alias e="emacsclient -c -a emacs -n" 2>/dev/null
+alias mx=$VISUAL 2>/dev/null
+alias e=$EDITOR 2>/dev/null
 
 # Source secrets file
 # source ~/.dotfiles/zsh/.zshenv-secrets
