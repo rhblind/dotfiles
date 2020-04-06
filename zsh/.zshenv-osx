@@ -57,9 +57,10 @@ export FZF_BASE=$(brew --prefix fzf)
 export FLAGS_GETOPT_CMD="$(brew --prefix gnu-getopt)/bin/getopt"
 
 # Editors
+export PATH="/usr/local/opt/emacs-plus/bin:$PATH"
 export ALTERNATE_EDITOR=""
-export EDITOR="vi -v"
-export VISUAL="code"
+export EDITOR="emacsclient -t -a emacs -nw"     # $EDITOR should open in terminal
+export VISUAL="emacsclient -c -a emacs -n"      # $VISUAL opens in GUI with non-daemon as alternate
 
 #
 # Aliases
@@ -80,6 +81,13 @@ alias td="tmux detach" 2>/dev/null
 alias gs="git status --short" 2>/dev/null
 alias vim="vi -v" 2>/dev/null
 alias pe="pipenv" 2>/dev/null
+alias mx=$VISUAL 2>/dev/null
+alias e=$EDITOR 2>/dev/null
 
 # Source secrets file
 source ~/.dotfiles/zsh/.zshenv-secrets
+
+#
+# User configuration
+#
+export SSH_KEY_PATH="~/.ssh/rsa_id"     # Default ssh key
