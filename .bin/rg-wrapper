@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+set -euo pipefail
+
+rg -M 120 --with-filename --no-heading --line-number --color never %s $@
