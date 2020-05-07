@@ -53,7 +53,7 @@ AWS_DEFAULT_PROFILE="default"
 
 # Keychain configuration
 zstyle :omz:plugins:keychain agents gpg,ssh
-zstyle :omz:plugins:keychain options --quiet
+zstyle :omz:plugins:keychain options --quiet --gpg2
 
 # Load oh-my-zsh
 source $ZSH/oh-my-zsh.sh
@@ -95,13 +95,15 @@ bindkey "[1;3C" end-of-line
 bindkey "^R" history-incremental-search-backward
 bindkey "^F" history-incremental-search-forward
 
-setopt RM_STAR_WAIT # If you do a 'rm *', Zsh will give you a sanity check!
-
-unsetopt autopushd  # Normal pushd/popd behaviour
-unsetopt CORRECT    # Disable Zsh spelling corrector
+setopt   rm_star_silent  # Don't ask for delete confirmation
+unsetopt autopushd       # Normal pushd/popd behaviour
+unsetopt CORRECT         # Disable Zsh spelling corrector
 
 # added by travis gem
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
 
 # source fzf if existing
 [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+
+# source kiex if existing
+test -s $HOME/.kiex/scripts/kiex && source $HOME/.kiex/scripts/kiex
