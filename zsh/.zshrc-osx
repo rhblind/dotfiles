@@ -11,6 +11,8 @@ plugins=(
     ripgrep
     tmux
     ssh-agent
+    gpg-agent
+    keychain
     zsh-completions
 )
 
@@ -94,9 +96,8 @@ setopt RM_STAR_WAIT             # If you do a 'rm *', Zsh will give you a sanity
 unsetopt autopushd  # Normal pushd/popd behaviour
 unsetopt CORRECT    # Disable Zsh spelling corrector
 
-# source zshenv
-[ -f $HOME/.zshenv ] && source $HOME/.zshenv
-
 # added by travis gem
 [ -f /Users/rolf/.travis/travis.sh ] && source /Users/rolf/.travis/travis.sh
 
+# source fzf if existing
+[ -f /usr/local/var/homebrew/linked/fzf/shell/key-bindings.zsh ] && source /usr/local/var/homebrew/linked/fzf/shell/key-bindings.zsh
