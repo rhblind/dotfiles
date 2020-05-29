@@ -107,3 +107,4 @@ unsetopt CORRECT         # Disable Zsh spelling corrector
 
 # source kiex if existing
 test -s $HOME/.kiex/scripts/kiex && source $HOME/.kiex/scripts/kiex
+
