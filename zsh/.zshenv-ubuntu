@@ -1,7 +1,6 @@
 # .zshenv is always sourced and should contain variables exported to
 # other programs, such as $PATH, $EDITOR and so on.
-# .zshenv → [.zprofile if login] → [.zshrc if interactive]
-#  → [.zlogin if login] → [.zlogout if cleanup before logout].
+# .zshenv → [.zprofile if login] → [.zshrc if interactive] → [.zlogin if login] → [.zlogout if cleanup before logout].
 
 CLICOLOR=1                          # Enable colorized output
 CASE_SENSITIVE="true"               # Uncomment the following line to use case-sensitive completion.
@@ -19,12 +18,17 @@ if [[ $(grep microsoft /proc/version) ]]; then
 
     # Start D-Bus for the session
     /usr/bin/dbus-launch --exit-with-session 1>/dev/null
+
+    # Run ntpdate when spawning shells (slow, better to just run it manually when needed)
+    # sudo /sbin/ntpdate -sb time.windows.com
+
+    # Run emacs in a new session (keeps it open even if the wsl session is closed)
+    alias emacs="setsid emacs" 2>/dev/null
 fi
 
 # Python
 export PYENV_ROOT=$HOME/.pyenv
-export REQUESTS_CA_BUNDLE=/usr/local/etc/openssl/certs/ca-bundle.pem
-# export VIRTUALENVWRAPPER_PYTHON=$(brew --prefix python)/libexec/bin/python
+export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 
 # Elixir
 if [[ -e /opt/elixir_1.9.1-1 ]]; then
