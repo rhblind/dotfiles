@@ -3,6 +3,7 @@ plugins=(
     django
     fzf
     git
+    asdf
     git-flow-avh
     gpg-agent
     history-substring-search
@@ -99,7 +100,7 @@ bindkey "^[[1;10C" end-of-line
 bindkey '^R' history-incremental-search-backward
 bindkey '^F' history-incremental-search-forward
 
-setopt RM_STAR_WAIT             # If you do a 'rm *', Zsh will give you a sanity check!
+unsetopt RM_STAR_WAIT             # If you do a 'rm *', Zsh will give you a sanity check!
 
 unsetopt autopushd  # Normal pushd/popd behaviour
 unsetopt CORRECT    # Disable Zsh spelling corrector

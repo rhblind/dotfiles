@@ -91,3 +91,4 @@ source ~/.dotfiles/zsh/.zshenv-secrets
 # User configuration
 #
 export SSH_KEY_PATH="~/.ssh/rsa_id"     # Default ssh key
+
