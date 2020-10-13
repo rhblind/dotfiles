@@ -10,48 +10,14 @@ CASE_SENSITIVE="true"               # Uncomment the following line to use case-s
 # User configuration
 #
 export MANPATH="/usr/local/man:$MANPATH"
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH:$HOME/.bin"
+export PATH=":$HOME/.bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export SSH_KEY_PATH="~/.ssh/rsa_id"     # Default ssh key
 export LANG=no_NO.UTF-8                 # Language settings
 export LC_ALL=no_NO.UTF-8               # Language settings
 
-# Scala
-#export SCALA_HOME="$(brew --prefix)/opt/scala/idea"
-#if [ "X$(which sbt)" != "X" ]; then
-#    export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M"
-#fi
-
-# Go
-# export GOPATH="$HOME/Documents/workspace/golang"
-# export PATH="$PATH:$GOPATH/bin:$(brew --prefix go)/libexec/bin"
-
-# Lua
-# export LUA_PATH="$LUA_PATH;$(brew --prefix lua)/?.lua;$HOME/.luarocks/lib/lua/5.2/?.lua"
-# export LUA_CPATH="$LUA_PATH;$(brew --prefix lua)/?.so;$HOME/.luarocks/lib/lua/5.2/?.so"
-# export PATH="$PATH:$HOME/.luarocks/bin:$(brew --prefix lua)/bin"
-
-# Android
-export ANDROID_HOME="/usr/local/opt/android-sdk"
-export PATH="$PATH:$ANDROID_HOME/tools"
-export PATH="$PATH:$ANDROID_HOME/platform-tools"
-
-# Node
-export PATH="$PATH:$(yarn global bin)"
-export NVM_DIR="$HOME/.nvm"
-source $(brew --prefix nvm)/nvm.sh
-
-# Ruby
-eval "$(rbenv init -)"
-
-# Python
-export REQUESTS_CA_BUNDLE=/usr/local/etc/openssl/certs/ca-bundle.pem
-export VIRTUALENVWRAPPER_PYTHON=$(brew --prefix python)/libexec/bin/python
 
 # fzf
 export FZF_BASE=$(brew --prefix fzf)
-
-# Z
-# source $(brew --prefix z)/etc/profile.d/z.sh
 
 # Using GNU getopt
 export FLAGS_GETOPT_CMD="$(brew --prefix gnu-getopt)/bin/getopt"
@@ -91,4 +57,3 @@ source ~/.dotfiles/zsh/.zshenv-secrets
 # User configuration
 #
 export SSH_KEY_PATH="~/.ssh/rsa_id"     # Default ssh key
-
