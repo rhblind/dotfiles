@@ -1,0 +1,44 @@
+[github]
+	user = rhblind
+	token = bc70a8e31886e32450dbae76b82bfe76
+[core]
+	ignorecase = false
+	excludesfile = ~/.gitignore_global
+	autocrlf = input
+[push]
+	default = simple
+[mergetool]
+	keepBackup = true
+[color]
+	ui = auto
+[commit]
+	template = ~/.stCommitMsg
+	gpgsign = false
+	pgpsign = true
+[alias]
+    identity = "! git config user.name $(git config user.$1.name)&>/dev/null; \
+        git config user.email $(git config user.$1.email)&>/dev/null; \
+        [[ ! -z $1 && ! -z $(git config user.$1.email) ]] && \
+            echo \"$(git config user.$1.name) <$(git config user.$1.email)>\" || \
+            echo \"Usage: git identity <profile> \"; :"
+[user "rhblind"]
+	name = Rolf Håvard Blindheim
+	email = rhblind@gmail.com
+	signingkey = DDCB852A0B6AAA95
+[user "rolf.havard.blindheim"]
+	name = "Rolf Håvard Blindheim"
+	email = rolf.havard.blindheim@intility.no
+	signingkey = DDCB852A0B6AAA95
+[credential]
+	helper = osxkeychain
+[tag]
+	gpgsign = false
+[gitlab "gitlab.intility.com/api/v4"]
+	user = rolf.havard.blindheim
+	email = rolf.havard.blindheim@intility.no
+[init]
+	defaultBranch = master
+[user]
+	name = Rolf Håvard Blindheim
+	email = rolf.havard.blindheim@intility.no
+	signingkey = DDCB852A0B6AAA95
