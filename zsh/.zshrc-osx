@@ -1,21 +1,29 @@
 # Plugins
+fpath=($HOME/.asdf/completions $fpath)
 plugins=(
-    django
+    asdf
+    colored-man-pages
+    docker
+    docker-compose
+    dotnet
     fzf
     git
-    asdf
     git-flow-avh
     gpg-agent
+    helm
     history-substring-search
     keychain
+    kubectl
     mix
+    nix-zsh-completions
     oc
+    osx-zsh-completions
     pipenv
     ripgrep
-    ssh-agent
     tmux
     zsh-completions
 )
+
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -61,9 +69,16 @@ zstyle :omz:plugins:keychain agents gpg,ssh
 zstyle :omz:plugins:keychain identities id_rsa id_rsa_intility
 zstyle :omz:plugins:keychain options --quiet --gpg2
 
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
+
 # Load oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 autoload -U compinit && compinit
+
+# Load some bash completions (for stuff that don't have zsh completions)
+[ -f /usr/local/etc/bash_completion.d/az ] && source /usr/local/etc/bash_completion.d/az
+autoload -U +X bashcompinit && bashcompinit
 
 #
 # User configuration
@@ -100,13 +115,13 @@ bindkey "^[[1;10C" end-of-line
 bindkey '^R' history-incremental-search-backward
 bindkey '^F' history-incremental-search-forward
 
-unsetopt RM_STAR_WAIT             # If you do a 'rm *', Zsh will give you a sanity check!
+unsetopt RM_STAR_WAIT  # If you do a 'rm *', Zsh will give you a sanity check!
 
 unsetopt autopushd  # Normal pushd/popd behaviour
 unsetopt CORRECT    # Disable Zsh spelling corrector
 
-# added by travis gem
-[ -f /Users/rolf/.travis/travis.sh ] && source /Users/rolf/.travis/travis.sh
-
 # source fzf if existing
-[ -f /usr/local/var/homebrew/linked/fzf/shell/key-bindings.zsh ] && source /usr/local/var/homebrew/linked/fzf/shell/key-bindings.zsh
+test -e /usr/local/var/homebrew/linked/fzf/shell/key-bindings.zsh && source /usr/local/var/homebrew/linked/fzf/shell/key-bindings.zsh || true
+
+# source iterm2 shell integration if existing
+test -e /Users/aa646/.iterm2_shell_integration.zsh && source /Users/aa646/.iterm2_shell_integration.zsh || true

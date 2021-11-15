@@ -10,7 +10,7 @@ CASE_SENSITIVE="true"               # Uncomment the following line to use case-s
 # User configuration
 #
 export MANPATH="/usr/local/man:$MANPATH"
-export PATH=":$HOME/.bin:/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="$HOME/.local/bin:/usr/local/sbin:$PATH"
 export SSH_KEY_PATH="~/.ssh/rsa_id"     # Default ssh key
 export LANG=no_NO.UTF-8                 # Language settings
 export LC_ALL=no_NO.UTF-8               # Language settings
@@ -22,8 +22,40 @@ export FZF_BASE=$(brew --prefix fzf)
 # Using GNU getopt
 export FLAGS_GETOPT_CMD="$(brew --prefix gnu-getopt)/bin/getopt"
 
-# Editors
-export PATH="/usr/local/opt/emacs-plus/bin:$PATH"
+# PostgreSQL client (Keg only)
+test -d /usr/local/opt/libpq/bin/ && export PATH="/usr/local/opt/libpq/bin/:$PATH"
+
+#
+# Programming languages
+#
+
+# Python
+test -d $HOME/.poetry/bin/ && export PATH="$HOME/.poetry/bin:$PATH"
+
+# Dotnet
+DOTNET_VERSION=$(dotnet --version)
+test -d $HOME/.dotnet/tools && export PATH="$PATH:/Users/aa646/.dotnet/tools"
+# Fix for VSCode using asdf -> https://github.com/OmniSharp/omnisharp-vscode/issues/3450#issuecomment-631127738
+test -d $ASDF_DIR/installs/dotnet-core/$DOTNET_VERSION && export MSBuildSDKsPath=$ASDF_DIR/installs/dotnet-core/$DOTNET_VERSION/sdk/$DOTNET_VERSION/Sdks
+
+# Elixir
+test -d $HOME/.local/opt/elixir-ls && export ELS_INSTALL_PREFIX="$HOME/.local/opt/elixir-ls"
+
+# Emacs
+export DOOMDIR=$HOME/.doom.d
+test -d $HOME/.emacs.d-doom/bin && export PATH="$HOME/.emacs.d-doom/bin:$PATH"
+
+export SPACEMACSDIR=$HOME/.spacemacs.d
+test -d $HOME/.emacs.d-spacemacs/bin && export PATH="$HOME/.emacs.d-spacemacs/bin:$PATH"
+
+if [ -f "/Applications/Emacs.app/Contents/MacOS/Emacs" ]; then
+    export EMACS="/Applications/Emacs.app/Contents/MacOS/Emacs"
+    alias emacs="$EMACS -nw"
+fi
+if [ -f "/Applications/Emacs.app/Contents/MacOS/bin/emacsclient" ]; then
+    alias emacsclient="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
+fi
+
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -t -a emacs -nw"     # $EDITOR should open in terminal
 export VISUAL="emacsclient -c -a emacs -n"      # $VISUAL opens in GUI with non-daemon as alternate
@@ -57,3 +89,6 @@ source ~/.dotfiles/zsh/.zshenv-secrets
 # User configuration
 #
 export SSH_KEY_PATH="~/.ssh/rsa_id"     # Default ssh key
+
+# added by Nix installer
+if [ -e /Users/aa646/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/aa646/.nix-profile/etc/profile.d/nix.sh; fi
