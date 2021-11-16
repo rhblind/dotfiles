@@ -12,8 +12,8 @@
 	ui = auto
 [commit]
 	template = ~/.stCommitMsg
-	gpgsign = false
-	pgpsign = true
+	gpgsign = true
+	pgpsign = false
 [alias]
     identity = "! git config user.name $(git config user.$1.name)&>/dev/null; \
         git config user.email $(git config user.$1.email)&>/dev/null; \
