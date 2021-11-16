@@ -1,6 +1,5 @@
 [github]
 	user = rhblind
-	token = bc70a8e31886e32450dbae76b82bfe76
 [core]
 	ignorecase = false
 	excludesfile = ~/.gitignore_global
