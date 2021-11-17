@@ -10,7 +10,7 @@ CASE_SENSITIVE="true"               # Uncomment the following line to use case-s
 # User configuration
 #
 export MANPATH="/usr/local/man:$MANPATH"
-export PATH="$HOME/.local/bin:/usr/local/sbin:$PATH"
+export PATH="$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export SSH_KEY_PATH="~/.ssh/rsa_id"     # Default ssh key
 export LANG=no_NO.UTF-8                 # Language settings
 export LC_ALL=no_NO.UTF-8               # Language settings
@@ -59,6 +59,10 @@ fi
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -t -a emacs -nw"     # $EDITOR should open in terminal
 export VISUAL="emacsclient -c -a emacs -n"      # $VISUAL opens in GUI with non-daemon as alternate
+
+# GPG Magic
+export SSH_AUTH_SOCK="$(/usr/local/MacGPG2/bin/gpgconf --list-dirs agent-ssh-socket)"
+export GPG_AGENT_INFO="$(/usr/local/MacGPG2/bin/gpgconf --list-dirs agent-socket):$(pgrep gpg-agent):1"
 
 #
 # Aliases
