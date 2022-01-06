@@ -58,7 +58,7 @@ fi
 
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -t -a emacs -nw"     # $EDITOR should open in terminal
-export VISUAL="emacsclient -c -a emacs -n"      # $VISUAL opens in GUI with non-daemon as alternate
+export VISUAL="emacsclient -a emacs -n"         # $VISUAL opens in GUI with non-daemon as alternate
 
 # GPG Magic
 export SSH_AUTH_SOCK="$(/usr/local/MacGPG2/bin/gpgconf --list-dirs agent-ssh-socket)"
