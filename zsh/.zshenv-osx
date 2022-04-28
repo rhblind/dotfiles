@@ -25,6 +25,9 @@ export FLAGS_GETOPT_CMD="$(brew --prefix gnu-getopt)/bin/getopt"
 # PostgreSQL client (Keg only)
 test -d /usr/local/opt/libpq/bin/ && export PATH="/usr/local/opt/libpq/bin/:$PATH"
 
+# Homebrew
+export HOMEBREW_NO_AUTO_UPDATE=1
+
 #
 # Programming languages
 #
@@ -40,6 +43,7 @@ test -d $ASDF_DIR/installs/dotnet-core/$DOTNET_VERSION && export MSBuildSDKsPath
 
 # Elixir
 test -d $HOME/.local/opt/elixir-ls && export ELS_INSTALL_PREFIX="$HOME/.local/opt/elixir-ls"
+export ERL_AFLAGS="-kernel shell_history enabled -kernel shell_history_file_bytes 1024000"
 
 # Emacs
 export DOOMDIR=$HOME/.doom.d

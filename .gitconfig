@@ -41,3 +41,7 @@
 	name = Rolf Håvard Blindheim
 	email = rolf.havard.blindheim@intility.no
 	signingkey = DDCB852A0B6AAA95
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[url "git@gitlab.intility..com:"]
+	insteadOf = https://gitlab.intility.com/
