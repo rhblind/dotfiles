@@ -15,6 +15,8 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"     # Default ssh key
 export LANG=no_NO.UTF-8                 # Language settings
 export LC_ALL=no_NO.UTF-8               # Language settings
 
+# asdf
+export ASDF_DIR=$HOME/.asdf
 
 # fzf
 export FZF_BASE=$(brew --prefix fzf)
@@ -40,6 +42,7 @@ DOTNET_VERSION=$(dotnet --version)
 test -d $HOME/.dotnet/tools && export PATH="$PATH:/Users/aa646/.dotnet/tools"
 # Fix for VSCode using asdf -> https://github.com/OmniSharp/omnisharp-vscode/issues/3450#issuecomment-631127738
 test -d $ASDF_DIR/installs/dotnet-core/$DOTNET_VERSION && export MSBuildSDKsPath=$ASDF_DIR/installs/dotnet-core/$DOTNET_VERSION/sdk/$DOTNET_VERSION/Sdks
+test -d $ASDF_DIR/plugins/dotnet-core && source $ASDF_DIR/plugins/dotnet-core/set-dotnet-home.zsh || true
 
 # Elixir
 test -d $HOME/.local/opt/elixir-ls && export ELS_INSTALL_PREFIX="$HOME/.local/opt/elixir-ls"
@@ -99,4 +102,4 @@ source ~/.dotfiles/zsh/.zshenv-secrets
 export SSH_KEY_PATH="~/.ssh/rsa_id"     # Default ssh key
 
 # added by Nix installer
-if [ -e /Users/aa646/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/aa646/.nix-profile/etc/profile.d/nix.sh; fi
+# if [ -e /Users/aa646/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/aa646/.nix-profile/etc/profile.d/nix.sh; fi
