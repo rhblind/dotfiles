@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # Plugins
 fpath=($HOME/.asdf/completions $fpath)
 plugins=(
@@ -6,6 +7,7 @@ plugins=(
     docker
     docker-compose
     dotnet
+    # emacs
     fzf
     git
     git-flow-avh
@@ -20,6 +22,7 @@ plugins=(
     osx-zsh-completions
     pipenv
     ripgrep
+    rust
     tmux
     zsh-completions
 )
@@ -97,6 +100,9 @@ autoload -U +X bashcompinit && bashcompinit
 #
 # User configuration
 #
+
+# Increase file descriptor limits
+ulimit -n 10240
 
 # History
 [ -z "$HISTFILE" ] && HISTFILE="$HOME/.zsh_history"

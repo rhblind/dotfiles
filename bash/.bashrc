@@ -89,3 +89,4 @@ alias e=$EDITOR 2>/dev/null
 # User configuration
 #
 export SSH_KEY_PATH="~/.ssh/rsa_id"     # Default ssh key
+. "$HOME/.cargo/env"

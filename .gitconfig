@@ -15,11 +15,7 @@
 	gpgsign = true
 	pgpsign = false
 [alias]
-    identity = "! git config user.name $(git config user.$1.name)&>/dev/null; \
-        git config user.email $(git config user.$1.email)&>/dev/null; \
-        [[ ! -z $1 && ! -z $(git config user.$1.email) ]] && \
-            echo \"$(git config user.$1.name) <$(git config user.$1.email)>\" || \
-            echo \"Usage: git identity <profile> \"; :"
+	cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|main\\|develop' | xargs -n 1 -r git branch -d"
 [user "rhblind"]
 	name = Rolf Håvard Blindheim
 	email = rhblind@gmail.com
@@ -36,7 +32,7 @@
 	user = rolf.havard.blindheim
 	email = rolf.havard.blindheim@intility.no
 [init]
-	defaultBranch = master
+	defaultBranch = main
 [user]
 	name = Rolf Håvard Blindheim
 	email = rolf.havard.blindheim@intility.no

@@ -1,19 +1,20 @@
+#!/usr/bin/env zsh
 # .zshenv is always sourced and should contain variables exported to
 # other programs, such as $PATH, $EDITOR and so on.
 # .zshenv → [.zprofile if login] → [.zshrc if interactive]
 #  → [.zlogin if login] → [.zlogout if cleanup before logout].
 
-CLICOLOR=1                          # Enable colorized output
-CASE_SENSITIVE="true"               # Uncomment the following line to use case-sensitive completion.
+CLICOLOR=1            # Enable colorized output
+CASE_SENSITIVE="true" # Uncomment the following line to use case-sensitive completion.
 
 #
 # User configuration
 #
 export MANPATH="/usr/local/man:$MANPATH"
 export PATH="$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:$PATH"
-export SSH_KEY_PATH="~/.ssh/rsa_id"     # Default ssh key
-export LANG=no_NO.UTF-8                 # Language settings
-export LC_ALL=no_NO.UTF-8               # Language settings
+export SSH_KEY_PATH="~/.ssh/rsa_id" # Default ssh key
+export LANG=no_NO.UTF-8             # Language settings
+export LC_ALL=no_NO.UTF-8           # Language settings
 
 # asdf
 export ASDF_DIR=$HOME/.asdf
@@ -21,8 +22,9 @@ export ASDF_DIR=$HOME/.asdf
 # fzf
 export FZF_BASE=$(brew --prefix fzf)
 
-# Using GNU getopt
+# Default to GNU version of certain commands
 export FLAGS_GETOPT_CMD="$(brew --prefix gnu-getopt)/bin/getopt"
+test -d /usr/local/opt/grep/libexec/gnubin && export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 
 # PostgreSQL client (Keg only)
 test -d /usr/local/opt/libpq/bin/ && export PATH="/usr/local/opt/libpq/bin/:$PATH"
@@ -34,9 +36,6 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # Programming languages
 #
 
-# Python
-test -d $HOME/.poetry/bin/ && export PATH="$HOME/.poetry/bin:$PATH"
-
 # Dotnet
 DOTNET_VERSION=$(dotnet --version)
 test -d $HOME/.dotnet/tools && export PATH="$PATH:/Users/aa646/.dotnet/tools"
@@ -45,29 +44,39 @@ test -d $ASDF_DIR/installs/dotnet-core/$DOTNET_VERSION && export MSBuildSDKsPath
 test -d $ASDF_DIR/plugins/dotnet-core && source $ASDF_DIR/plugins/dotnet-core/set-dotnet-home.zsh || true
 
 # Elixir
-test -d $HOME/.local/opt/elixir-ls && export ELS_INSTALL_PREFIX="$HOME/.local/opt/elixir-ls"
 export ERL_AFLAGS="-kernel shell_history enabled -kernel shell_history_file_bytes 1024000"
+
+# Rust
+test -d $HOME/.cargo/bin && export PATH="$HOME/.cargo/bin:$PATH"
+export CARGO_NET_GIT_FETCH_WITH_CLI=true
+
+# Golang
+test -d $HOME/workspace/golang && export GOPATH="$HOME/workspace/golang"
+test -d $GOPATH/bin && export PATH="$GOPATH/bin:$PATH"
 
 # Emacs
 export DOOMDIR=$HOME/.doom.d
-test -d $HOME/.emacs.d-doom/bin && export PATH="$HOME/.emacs.d-doom/bin:$PATH"
+test -d $HOME/.emacs.d/bin && export PATH="$HOME/.emacs.d/bin:$PATH"
+test -d $HOME/.config/emacs/bin && export PATH="$HOME/.config/emacs/bin:$PATH"
 
-export SPACEMACSDIR=$HOME/.spacemacs.d
-test -d $HOME/.emacs.d-spacemacs/bin && export PATH="$HOME/.emacs.d-spacemacs/bin:$PATH"
+# Use `plist` serialization for lsp-mode.
+export LSP_USE_PLISTS=true
 
-if [ -f "/Applications/Emacs.app/Contents/MacOS/Emacs" ]; then
-    export EMACS="/Applications/Emacs.app/Contents/MacOS/Emacs"
-    alias emacs="$EMACS -nw"
-fi
-if [ -f "/Applications/Emacs.app/Contents/MacOS/bin/emacsclient" ]; then
-    alias emacsclient="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
-fi
+# if [ -f "/Applications/Emacs.app/Contents/MacOS/Emacs" ]; then
+#     export EMACS="/Applications/Emacs.app/Contents/MacOS/Emacs"
+#     alias emacs="$EMACS -nw"
+# fi
+# if [ -f "/Applications/Emacs.app/Contents/MacOS/bin/emacsclient" ]; then
+#     alias emacsclient="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
+# fi
 
-export ALTERNATE_EDITOR=""
-export EDITOR="emacsclient -t -a emacs -nw"     # $EDITOR should open in terminal
-export VISUAL="emacsclient -a emacs -n"         # $VISUAL opens in GUI with non-daemon as alternate
+# export ALTERNATE_EDITOR=""
+# export EDITOR="$EMACS_PLUGIN_LAUNCHER -nw"     # $EDITOR should open in terminal
+# export VISUAL="$EMACS_PLUGIN_LAUNCHER"         # $VISUAL opens in GUI with non-daemon as alternate
 
 # GPG Magic
+# GPG_TTY=$(tty)
+# export PINENTRY_USER_DATA="USE_CURSES=1"
 export SSH_AUTH_SOCK="$(/usr/local/MacGPG2/bin/gpgconf --list-dirs agent-ssh-socket)"
 export GPG_AGENT_INFO="$(/usr/local/MacGPG2/bin/gpgconf --list-dirs agent-socket):$(pgrep gpg-agent):1"
 
@@ -88,10 +97,10 @@ alias mv="mv -v" 2>/dev/null
 alias tm="tmux" 2>/dev/null
 alias td="tmux detach" 2>/dev/null
 alias gs="git status --short" 2>/dev/null
-alias vim="vi -v" 2>/dev/null
+alias vim="nvim" 2>/dev/null
 alias pe="pipenv" 2>/dev/null
-alias mx=$VISUAL 2>/dev/null
-alias e=$EDITOR 2>/dev/null
+
+alias emacs='$(/Applications/Emacs.app/Contents/MacOS/Emacs "$@")'
 
 # Source secrets file
 source ~/.dotfiles/zsh/.zshenv-secrets
@@ -99,7 +108,8 @@ source ~/.dotfiles/zsh/.zshenv-secrets
 #
 # User configuration
 #
-export SSH_KEY_PATH="~/.ssh/rsa_id"     # Default ssh key
+export SSH_KEY_PATH="~/.ssh/rsa_id" # Default ssh key
 
 # added by Nix installer
 # if [ -e /Users/aa646/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/aa646/.nix-profile/etc/profile.d/nix.sh; fi
+. "$HOME/.cargo/env"
