@@ -1,8 +1,8 @@
 ## Enable colorized input
 CLICOLOR=1
- 
+
 ## Use case sensitive completions
-CASE_SENSITIVE="true" 
+CASE_SENSITIVE="true"
 
 ## Local binaries
 export PATH=$HOME/.local/bin:$PATH
@@ -45,4 +45,4 @@ alias mv="mv -v" 2>/dev/null
 alias tm="tmux" 2>/dev/null
 alias td="tmux detach" 2>/dev/null
 alias gs="git status --short" 2>/dev/null
-# alias vim="nvim" 2>/dev/null
+alias vim="nvim" 2>/dev/null
