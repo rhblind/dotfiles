@@ -77,7 +77,8 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-fpath=($HOME/.asdf/completions $fpath)
+
+fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 plugins=(
     asdf
     azure
@@ -100,7 +101,8 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-autoload -U compinit && compinit
+autoload -Uz bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
 
 # User configuration
 

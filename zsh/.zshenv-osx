@@ -7,6 +7,10 @@ CASE_SENSITIVE="true"
 ## Local binaries
 export PATH=$HOME/.local/bin:$PATH
 
+# ASDF
+export ASDF_DATA_DIR=$HOME/.config/asdf
+export PATH=$ASDF_DATA_DIR/shims:$PATH
+
 # Homebrew
 export HOMEBREW_NO_AUTO_UPDATE=1
 
@@ -31,6 +35,9 @@ test -d $HOME/.cargo/bin && export PATH="$HOME/.cargo/bin:$PATH"
 export CARGO_NET_GIT_FETCH_WITH_CLI=true
 source "$HOME/.cargo/env"
 
+# .NET
+test -f ~/.asdf/plugins/dotnet/set-dotnet-env.zsh && source ~/.asdf/plugins/dotnet/set-dotnet-env.zsh
+
 ## Aliases
 alias grep="grep --color=auto" 2>/dev/null
 alias egrep="egrep --color=auto" 2>/dev/null
@@ -45,4 +52,5 @@ alias mv="mv -v" 2>/dev/null
 alias tm="tmux" 2>/dev/null
 alias td="tmux detach" 2>/dev/null
 alias gs="git status --short" 2>/dev/null
+alias vi="nvim" 2>/dev/null
 alias vim="nvim" 2>/dev/null
