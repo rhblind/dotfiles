@@ -18,11 +18,14 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # export GPG_AGENT_INFO="$(gpgconf --list-dirs agent-socket):$(pgrep gpg-agent):1"
 
 ## Emacs
+# export EDITOR="emacsclient -c -a \"\""
+# export VISUAL="emacsclient -c -a \"\""
 export DOOMDIR=$HOME/.doom.d
 test -d $HOME/.config/emacs/bin && export PATH="$HOME/.config/emacs/bin:$PATH"
 
 ## Erlang and Elixir
 # Make things nice.
+export MIX_OS_DEPS_COMPILE_PARTITION_COUNT=5
 export ERL_AFLAGS="+pc unicode -kernel shell_history enabled -kernel shell_history_file_bytes 1024000"
 export PATH=$HOME/.cache/rebar3/bin:$PATH
 
@@ -37,6 +40,12 @@ source "$HOME/.cargo/env"
 
 # .NET
 test -f ~/.asdf/plugins/dotnet/set-dotnet-env.zsh && source ~/.asdf/plugins/dotnet/set-dotnet-env.zsh
+
+## LLMs
+export AIDER_EDITOR=emacs
+export OPENAI_API_BASE=https://api.githubcopilot.com
+# export AZURE_API_BASE=https://secmgmt-intility.openai.azure.com/
+# export AZURE_API_VERSION=2025-01-01-preview
 
 ## Aliases
 alias grep="grep --color=auto" 2>/dev/null
@@ -54,3 +63,4 @@ alias td="tmux detach" 2>/dev/null
 alias gs="git status --short" 2>/dev/null
 alias vi="nvim" 2>/dev/null
 alias vim="nvim" 2>/dev/null
+alias e="emacsclient --alternate-editor='' -r --no-wait $*" 2>/dev/null

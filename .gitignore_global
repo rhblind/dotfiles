@@ -1,0 +1,12 @@
+# Operating System
+.DS_Store
+
+# Emacs stuff
+emacs/.emacs.d/auto-save-list/
+emacs/.emacs.d/elpa/
+
+# Secrets files
+.secrets
+
+# Aider config files
+.aider*

@@ -4,6 +4,7 @@
 	ignorecase = false
 	excludesfile = ~/.gitignore_global
 	autocrlf = input
+	editor = emacsclient -c -a \"\"
 [push]
 	default = simple
 [mergetool]

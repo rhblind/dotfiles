@@ -96,6 +96,7 @@ plugins=(
     oc
     rust
     tmux
+    z
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
@@ -137,9 +138,10 @@ setopt share_history          # share command history data
 # See http://stackoverflow.com/a/29403520/1326249 for iTerm2 bindings
 bindkey "^X\\x7f" backward-kill-line
 bindkey "^X\\x0b" kill-line
-bindkey "^K"  kill-whole-line
-bindkey "^[b" backward-word
-bindkey "^[f" forward-word
+bindkey "^J" vi-down-line-or-history
+bindkey "^K" vi-up-line-or-history
+bindkey "^[[1;3D" backward-word
+bindkey "^[[1;3C" forward-word
 bindkey "^[d" delete-word
 bindkey "^[[1;10D" beginning-of-line
 bindkey "^[[1;10C" end-of-line
