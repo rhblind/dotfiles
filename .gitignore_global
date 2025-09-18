@@ -10,3 +10,10 @@ emacs/.emacs.d/elpa/
 
 # Aider config files
 .aider*
+
+# Claude
+.claude/settings.local.json
+
+# Elixir
+.elixir_ls/
+.expert/

@@ -7,9 +7,9 @@ CASE_SENSITIVE="true"
 ## Local binaries
 export PATH=$HOME/.local/bin:$PATH
 
-# ASDF
-export ASDF_DATA_DIR=$HOME/.config/asdf
-export PATH=$ASDF_DATA_DIR/shims:$PATH
+# MISE
+export MISE_DATA_DIR=$HOME/.local/share/mise
+export PATH=$MISE_DATA_DIR/shims:$PATH
 
 # Homebrew
 export HOMEBREW_NO_AUTO_UPDATE=1
@@ -23,6 +23,9 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 export DOOMDIR=$HOME/.doom.d
 test -d $HOME/.config/emacs/bin && export PATH="$HOME/.config/emacs/bin:$PATH"
 
+[ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
+  source "$EAT_SHELL_INTEGRATION_DIR/zsh"
+
 ## Erlang and Elixir
 # Make things nice.
 export MIX_OS_DEPS_COMPILE_PARTITION_COUNT=5
@@ -30,22 +33,27 @@ export ERL_AFLAGS="+pc unicode -kernel shell_history enabled -kernel shell_histo
 export PATH=$HOME/.cache/rebar3/bin:$PATH
 
 ## Golang
-test -d $HOME/workspace/golang && export GOPATH="$HOME/workspace/golang"
-test -d $GOPATH/bin && export PATH="$GOPATH/bin:$PATH"
+# test -d $HOME/workspace/golang && export GOPATH="$HOME/workspace/golang"
+# test -d $GOPATH/bin && export PATH="$GOPATH/bin:$PATH"
+test -f $MISE_DATA_DIR/plugins/golang/set-env.zsh && source $MISE_DATA_DIR/plugins/golang/set-env.zsh
 
-# Rust
+## Rust
 test -d $HOME/.cargo/bin && export PATH="$HOME/.cargo/bin:$PATH"
 export CARGO_NET_GIT_FETCH_WITH_CLI=true
 source "$HOME/.cargo/env"
 
-# .NET
-test -f ~/.asdf/plugins/dotnet/set-dotnet-env.zsh && source ~/.asdf/plugins/dotnet/set-dotnet-env.zsh
+## .NET
+test -f $MISE_DATA_DIR/plugins/dotnet/set-dotnet-env.zsh && source $MISE_DATA_DIR/plugins/dotnet/set-dotnet-env.zsh
+test -d $HOME/.dotnet/tools && export PATH=$HOME/.dotnet/tools:$PATH
 
 ## LLMs
 export AIDER_EDITOR=emacs
 export OPENAI_API_BASE=https://api.githubcopilot.com
 # export AZURE_API_BASE=https://secmgmt-intility.openai.azure.com/
 # export AZURE_API_VERSION=2025-01-01-preview
+
+## Claude Code
+export MAX_MCP_OUTPUT_TOKENS=50000  # Required for hexdocs-mcp to download large docs
 
 ## Aliases
 alias grep="grep --color=auto" 2>/dev/null
