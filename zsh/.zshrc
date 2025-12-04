@@ -101,6 +101,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+
 autoload -Uz bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 
@@ -134,7 +135,6 @@ setopt share_history          # share command history data
 
 # Key bindings
 # http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Standard-Widgets
-# See http://stackoverflow.com/a/29403520/1326249 for iTerm2 bindings
 bindkey "^X\\x7f" backward-kill-line
 bindkey "^X\\x0b" kill-line
 bindkey "^J" vi-down-line-or-history
@@ -146,21 +146,6 @@ bindkey "^[[1;10D" beginning-of-line
 bindkey "^[[1;10C" end-of-line
 bindkey '^R' history-incremental-search-backward
 bindkey '^F' history-incremental-search-forward
-
-# Compilation flags
-# export ARCHFLAGS="-arch $(uname -m)"
-
-# Set personal aliases, overriding those provided by Oh My Zsh libs,
-# plugins, and themes. Aliases can be placed here, though Oh My Zsh
-# users are encouraged to define aliases within a top-level file in
-# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
-# - $ZSH_CUSTOM/aliases.zsh
-# - $ZSH_CUSTOM/macos.zsh
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # GPG Magic
 export GPG_TTY=$(tty)
