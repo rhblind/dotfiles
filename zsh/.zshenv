@@ -34,7 +34,7 @@ test -d $HOME/.config/emacs/bin && export PATH="$HOME/.config/emacs/bin:$PATH"
 
 ## Erlang and Elixir
 # Make things nice.
-export MIX_OS_DEPS_COMPILE_PARTITION_COUNT=5
+export MIX_OS_DEPS_COMPILE_PARTITION_COUNT=5 # Speed up mix deps.compile by parallelizing. Set to half of your CPU cores.
 export ERL_AFLAGS="+pc unicode -kernel shell_history enabled -kernel shell_history_file_bytes 1024000"
 export PATH=$HOME/.cache/rebar3/bin:$PATH
 
