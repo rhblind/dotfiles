@@ -14,6 +14,12 @@ export PATH=$MISE_DATA_DIR/shims:$PATH
 # Homebrew
 export HOMEBREW_NO_AUTO_UPDATE=1
 
+# Node global
+test -d $HOME/.npm-global/bin && export PATH="$HOME/.npm-global/bin:$PATH"
+
+# Kubernetes stuff
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
 ## GPG Magic
 # export GPG_AGENT_INFO="$(gpgconf --list-dirs agent-socket):$(pgrep gpg-agent):1"
 
@@ -23,8 +29,8 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 export DOOMDIR=$HOME/.doom.d
 test -d $HOME/.config/emacs/bin && export PATH="$HOME/.config/emacs/bin:$PATH"
 
-[ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
-  source "$EAT_SHELL_INTEGRATION_DIR/zsh"
+[ -n "$EAT_SHELL_INTEGRATION_DIR" ] &&
+    source "$EAT_SHELL_INTEGRATION_DIR/zsh"
 
 ## Erlang and Elixir
 # Make things nice.
@@ -53,7 +59,12 @@ export OPENAI_API_BASE=https://api.githubcopilot.com
 # export AZURE_API_VERSION=2025-01-01-preview
 
 ## Claude Code
-export MAX_MCP_OUTPUT_TOKENS=50000  # Required for hexdocs-mcp to download large docs
+export CLAUDE_CODE_USE_FOUNDRY=1
+export ANTHROPIC_FOUNDRY_BASE_URL="https://dadp-openai-us2-resource.openai.azure.com/anthropic"
+export ANTHROPIC_DEFAULT_SONNET_MODEL='claude-sonnet-4-5'
+export ANTHROPIC_DEFAULT_HAIKU_MODEL='claude-haiku-4-5'
+export ANTHROPIC_DEFAULT_OPUS_MODEL='claude-opus-4-5'
+export MAX_MCP_OUTPUT_TOKENS=50000 # Required for hexdocs-mcp to download large docs
 
 ## Aliases
 alias grep="grep --color=auto" 2>/dev/null
@@ -72,3 +83,5 @@ alias gs="git status --short" 2>/dev/null
 alias vi="nvim" 2>/dev/null
 alias vim="nvim" 2>/dev/null
 alias e="emacsclient --alternate-editor='' -r --no-wait $*" 2>/dev/null
+
+test -f $HOME/.zshenv-secrets && source $HOME/.zshenv-secrets
