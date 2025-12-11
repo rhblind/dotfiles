@@ -21,7 +21,8 @@ test -d $HOME/.npm-global/bin && export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 ## GPG Magic
-# export GPG_AGENT_INFO="$(gpgconf --list-dirs agent-socket):$(pgrep gpg-agent):1"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+export GPG_AGENT_INFO=$(gpgconf --list-dirs agent-socket):$(pgrep gpg-agent):1
 
 ## Emacs
 # export EDITOR="emacsclient -c -a \"\""
@@ -59,11 +60,11 @@ export OPENAI_API_BASE=https://api.githubcopilot.com
 # export AZURE_API_VERSION=2025-01-01-preview
 
 ## Claude Code
-export CLAUDE_CODE_USE_FOUNDRY=1
-export ANTHROPIC_FOUNDRY_BASE_URL="https://dadp-openai-us2-resource.openai.azure.com/anthropic"
-export ANTHROPIC_DEFAULT_SONNET_MODEL='claude-sonnet-4-5'
-export ANTHROPIC_DEFAULT_HAIKU_MODEL='claude-haiku-4-5'
-export ANTHROPIC_DEFAULT_OPUS_MODEL='claude-opus-4-5'
+# export CLAUDE_CODE_USE_FOUNDRY=1
+# export ANTHROPIC_FOUNDRY_BASE_URL="https://dadp-openai-us2-resource.openai.azure.com/anthropic"
+# export ANTHROPIC_DEFAULT_SONNET_MODEL='claude-sonnet-4-5'
+# export ANTHROPIC_DEFAULT_HAIKU_MODEL='claude-haiku-4-5'
+# export ANTHROPIC_DEFAULT_OPUS_MODEL='claude-opus-4-5'
 export MAX_MCP_OUTPUT_TOKENS=50000 # Required for hexdocs-mcp to download large docs
 
 ## Aliases
