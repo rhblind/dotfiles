@@ -69,9 +69,9 @@ on-mode-changed = []
     3 = ['built-in', 'main']
     4 = 'main'
     5 = 'main'
-    6 = 3
-    7 = 3
-    8 = 3
+    6 = [3, 'main']
+    7 = [3, 'main']
+    8 = 'built-in'
     9 = 'built-in'
 
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
@@ -239,3 +239,47 @@ on-mode-changed = []
     alt-shift-j = ['join-with down', 'mode main']
     alt-shift-k = ['join-with up', 'mode main']
     alt-shift-l = ['join-with right', 'mode main']
+
+# App to workspace assignments
+# See: https://nikitabobko.github.io/AeroSpace/guide#assign-apps-to-workspaces
+
+# Workspace 1: Browser, Terminal
+[[on-window-detected]]
+if.app-id = 'app.zen-browser.zen'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = 'move-node-to-workspace 1'
+
+# Workspace 2: Editor
+[[on-window-detected]]
+if.app-id = 'org.gnu.Emacs'
+run = 'move-node-to-workspace 2'
+
+# Workspace 3: Communication (built-in monitor)
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.teams2'
+run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.MobileSMS'
+run = 'move-node-to-workspace 1'
+
+# Workspace 8: Music (built-in monitor)
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = 'move-node-to-workspace 8'
+
+# Workspace 9: Email (built-in monitor)
+[[on-window-detected]]
+if.app-id = 'com.microsoft.Outlook'
+run = 'move-node-to-workspace 9'
