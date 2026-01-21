@@ -17,6 +17,9 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # Node global
 test -d $HOME/.npm-global/bin && export PATH="$HOME/.npm-global/bin:$PATH"
 
+# Docker/Podman
+export DOCKER_HOST="unix://$(podman machine inspect --format '{{.ConnectionInfo.PodmanSocket.Path}}')"
+
 # Kubernetes stuff
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
@@ -29,9 +32,6 @@ export GPG_AGENT_INFO=$(gpgconf --list-dirs agent-socket):$(pgrep gpg-agent):1
 # export VISUAL="emacsclient -c -a \"\""
 export DOOMDIR=$HOME/.doom.d
 test -d $HOME/.config/emacs/bin && export PATH="$HOME/.config/emacs/bin:$PATH"
-
-[ -n "$EAT_SHELL_INTEGRATION_DIR" ] &&
-    source "$EAT_SHELL_INTEGRATION_DIR/zsh"
 
 ## Erlang and Elixir
 # Make things nice.

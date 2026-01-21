@@ -3,10 +3,13 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+# Emacs vterm compatibility - P10k's ZLE hooks cause line jiggling in vterm
+_IS_EMACS_VTERM=$([[ "$INSIDE_EMACS" = 'vterm' ]] && echo 1 || echo 0)
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+if (( ! _IS_EMACS_VTERM )) && [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
@@ -20,7 +23,11 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+if (( _IS_EMACS_VTERM )); then
+  ZSH_THEME=""
+else
+  ZSH_THEME="powerlevel10k/powerlevel10k"
+fi
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -86,8 +93,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(
     azure
     colored-man-pages
-    docker
-    docker-compose
     dotnet
     fzf
     git
@@ -98,6 +103,7 @@ plugins=(
     mix
     npm
     oc
+    podman
     rust
     tmux
     z
@@ -156,4 +162,11 @@ bindkey '^F' history-incremental-search-forward
 export GPG_TTY=$(tty)
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+(( ! _IS_EMACS_VTERM )) && [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+unset _IS_EMACS_VTERM
+
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/aa646/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
