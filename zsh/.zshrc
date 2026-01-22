@@ -156,8 +156,14 @@ bindkey "^[[1;3C" forward-word
 bindkey "^[d" delete-word
 bindkey "^[[1;10D" beginning-of-line
 bindkey "^[[1;10C" end-of-line
-bindkey '^R' history-incremental-search-backward
-bindkey '^F' history-incremental-search-forward
+# FZF configuration (fzf plugin binds ^R to fzf-history-widget)
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+export FZF_CTRL_R_OPTS="
+  --height 40%
+  --reverse
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --header 'CTRL-Y: copy to clipboard'
+"
 
 # GPG Magic (SSH_AUTH_SOCK and GPG_AGENT_INFO are in .zshenv)
 export GPG_TTY=$(tty)
