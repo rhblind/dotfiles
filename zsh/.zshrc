@@ -99,6 +99,7 @@ plugins=(
     golang
     history-substring-search
     kubectl
+    minikube
     mise
     mix
     npm
