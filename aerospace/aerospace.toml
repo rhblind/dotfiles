@@ -308,6 +308,12 @@ run = 'move-node-to-workspace 8'
 if.app-id = 'com.microsoft.Outlook'
 run = 'move-node-to-workspace 9'
 
+# cmux: float the Settings/config window, tile the main window
+[[on-window-detected]]
+if.app-name-regex-substring = 'cmux'
+if.window-title-regex-substring = 'Settings'
+run = 'layout floating'
+
 # BEAM Observer: float sub-windows (process info, charts, etc.) but tile the main observer
 [[on-window-detected]]
 if.app-name-regex-substring = 'Erlang'
