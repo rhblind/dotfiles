@@ -6,6 +6,7 @@ emacs/.emacs.d/auto-save-list/
 emacs/.emacs.d/elpa/
 
 # Secrets files
+.env
 .secrets
 
 # Aider config files
@@ -20,3 +21,6 @@ emacs/.emacs.d/elpa/
 # Elixir
 .elixir_ls/
 .expert/
+
+# Git worktrees
+.worktrees

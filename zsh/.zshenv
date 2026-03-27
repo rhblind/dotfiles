@@ -18,18 +18,21 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 test -d $HOME/.npm-global/bin && export PATH="$HOME/.npm-global/bin:$PATH"
 
 # Docker/Podman
-export DOCKER_HOST="unix://$(podman machine inspect --format '{{.ConnectionInfo.PodmanSocket.Path}}')"
+(( $+commands[podman] )) && export DOCKER_HOST="unix://$(podman machine inspect --format '{{.ConnectionInfo.PodmanSocket.Path}}')"
 
 # Kubernetes stuff
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 ## GPG Magic
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-export GPG_AGENT_INFO=$(gpgconf --list-dirs agent-socket):$(pgrep gpg-agent):1
+if (( $+commands[gpgconf] )); then
+    export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+    export GPG_AGENT_INFO=$(gpgconf --list-dirs agent-socket):$(pgrep gpg-agent):1
+fi
 
-## Emacs
-# export EDITOR="emacsclient -c -a \"\""
-# export VISUAL="emacsclient -c -a \"\""
+## Emacs stuff
+export VISUAL="$HOME/.local/bin/emacs-editor"
+export EDITOR="$VISUAL"
+
 export DOOMDIR=$HOME/.doom.d
 test -d $HOME/.config/emacs/bin && export PATH="$HOME/.config/emacs/bin:$PATH"
 
@@ -54,8 +57,7 @@ test -f $MISE_DATA_DIR/plugins/dotnet/set-dotnet-env.zsh && source $MISE_DATA_DI
 test -d $HOME/.dotnet/tools && export PATH=$HOME/.dotnet/tools:$PATH
 
 ## LLMs
-export AIDER_EDITOR=emacs
-export OPENAI_API_BASE=https://api.githubcopilot.com
+# export OPENAI_API_BASE=https://api.githubcopilot.com
 # export AZURE_API_BASE=https://secmgmt-intility.openai.azure.com/
 # export AZURE_API_VERSION=2025-01-01-preview
 

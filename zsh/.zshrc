@@ -93,6 +93,8 @@ fi
 plugins=(
     azure
     colored-man-pages
+    emacs
+    direnv
     dotnet
     fzf
     git
@@ -171,6 +173,17 @@ export GPG_TTY=$(tty)
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 (( ! _IS_EMACS_VTERM )) && [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 unset _IS_EMACS_VTERM
+
+# Emacs client (connects to running daemon, starts one if needed)
+unalias e 2>/dev/null
+e() {
+    TERM=xterm-256color emacsclient -nw --alternate-editor="" "$@"
+}
+
+# Kill the emacs daemon
+ek() {
+    emacsclient -e "(kill-emacs)"
+}
 
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/aa646/.docker/completions $fpath)

@@ -307,3 +307,9 @@ run = 'move-node-to-workspace 8'
 [[on-window-detected]]
 if.app-id = 'com.microsoft.Outlook'
 run = 'move-node-to-workspace 9'
+
+# BEAM Observer: float sub-windows (process info, charts, etc.) but tile the main observer
+[[on-window-detected]]
+if.app-name-regex-substring = 'Erlang'
+if.window-title-regex-substring = ':'
+run = 'layout floating'
