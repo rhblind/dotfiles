@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(aerospace list-windows:*)",
+      "Bash(aerospace layout:*)",
+      "Bash(echo \"exit: $?\")",
+      "Read(//Users/aa646/Library/**)",
+      "Read(//Users/aa646/.config/**)"
+    ]
+  }
+}

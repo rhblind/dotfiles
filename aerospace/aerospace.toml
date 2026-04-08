@@ -72,7 +72,7 @@ on-mode-changed = []
     2 = [3, 'main']
     3 = ['built-in', 'main']
     4 = 'main'
-    5 = 'main'
+    5 = [3, 'main']
     6 = [3, 'main']
     7 = [3, 'main']
     8 = 'built-in'
@@ -308,9 +308,20 @@ run = 'move-node-to-workspace 8'
 if.app-id = 'com.microsoft.Outlook'
 run = 'move-node-to-workspace 9'
 
+# Zen Browser: float the Library window
+[[on-window-detected]]
+if.app-id = 'app.zen-browser.zen'
+if.window-title-regex-substring = 'Library'
+run = 'layout floating'
+
 # 1Password: always float
 [[on-window-detected]]
 if.app-id = 'com.1password.1password'
+run = 'layout floating'
+
+# Finder: always float
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
 run = 'layout floating'
 
 # cmux: float the Settings/config window, tile the main window
