@@ -3,16 +3,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# Emacs vterm compatibility - P10k's ZLE hooks cause line jiggling in vterm
-_IS_EMACS_VTERM=$([[ "$INSIDE_EMACS" = 'vterm' ]] && echo 1 || echo 0)
-
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if (( ! _IS_EMACS_VTERM )) && [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -23,10 +13,26 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-if (( _IS_EMACS_VTERM )); then
-  ZSH_THEME=""
+ZSH_THEME=""
+
+# Appearance switching (zsh-appearance-control)
+export ZAC_IO_CMD="$HOME/.dotfiles/zsh/bin/appearance-tmux-switch.sh"
+export ZAC_DEFERRED_CALLBACK_FNC=_zac_deferred_callback
+
+_zac_deferred_callback() {
+  local is_dark=$1
+  if (( is_dark )); then
+    export STARSHIP_CONFIG="$HOME/.dotfiles/zsh/starship-dark.toml"
+  else
+    export STARSHIP_CONFIG="$HOME/.dotfiles/zsh/starship-light.toml"
+  fi
+}
+
+# Set initial STARSHIP_CONFIG based on current appearance
+if defaults read -g AppleInterfaceStyle >/dev/null 2>&1; then
+  export STARSHIP_CONFIG="$HOME/.dotfiles/zsh/starship-dark.toml"
 else
-  ZSH_THEME="powerlevel10k/powerlevel10k"
+  export STARSHIP_CONFIG="$HOME/.dotfiles/zsh/starship-light.toml"
 fi
 
 # Set list of themes to pick from when loading at random
@@ -98,6 +104,7 @@ plugins=(
     dotnet
     fzf
     git
+    grepai
     golang
     history-substring-search
     kubectl
@@ -110,6 +117,7 @@ plugins=(
     rust
     tmux
     z
+    zsh-appearance-control
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
@@ -167,12 +175,11 @@ export FZF_CTRL_R_OPTS="
   --header 'CTRL-Y: copy to clipboard'
 "
 
+# Increase file limits
+ulimit -n 8192
+
 # GPG Magic (SSH_AUTH_SOCK and GPG_AGENT_INFO are in .zshenv)
 export GPG_TTY=$(tty)
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-(( ! _IS_EMACS_VTERM )) && [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-unset _IS_EMACS_VTERM
 
 # Emacs client (connects to running daemon, starts one if needed)
 unalias e 2>/dev/null
@@ -190,3 +197,6 @@ fpath=(/Users/aa646/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
+
+# Starship prompt
+eval "$(starship init zsh)"

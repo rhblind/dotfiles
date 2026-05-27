@@ -34,7 +34,10 @@ export VISUAL="$HOME/.local/bin/emacs-editor"
 export EDITOR="$VISUAL"
 
 export DOOMDIR=$HOME/.doom.d
-test -d $HOME/.config/emacs/bin && export PATH="$HOME/.config/emacs/bin:$PATH"
+test -d $HOME/.config/emacs-doom/bin && export PATH="$HOME/.config/emacs-doom/bin:$PATH"
+
+export SCRATCHDIR=$HOME/.scratch.d
+test -d $HOME/.config/emacs-scratch/bin && export PATH="$HOME/.config/emacs-scratch/bin:$PATH"
 
 ## Erlang and Elixir
 # Make things nice.
@@ -63,6 +66,7 @@ test -d $HOME/.dotnet/tools && export PATH=$HOME/.dotnet/tools:$PATH
 
 ## Claude Code
 # export CLAUDE_CODE_USE_FOUNDRY=1
+export ENABLE_LSP_TOOL=1
 # export ANTHROPIC_FOUNDRY_BASE_URL="https://dadp-openai-us2-resource.openai.azure.com/anthropic"
 # export ANTHROPIC_DEFAULT_SONNET_MODEL='claude-sonnet-4-5'
 # export ANTHROPIC_DEFAULT_HAIKU_MODEL='claude-haiku-4-5'

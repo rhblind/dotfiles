@@ -1,0 +1,76 @@
+palette = "nord"
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$nodejs\
+$python\
+$golang\
+$rust\
+$elixir\
+$java\
+$dotnet\
+$cmd_duration\
+$line_break\
+$character"""
+
+[palettes.nord]
+nord_blue = "#81A1C1"
+nord_green = "#A3BE8C"
+nord_yellow = "#EBCB8B"
+nord_red = "#BF616A"
+nord_purple = "#B48EAD"
+nord_cyan = "#88C0D0"
+nord_fg = "#ECEFF4"
+nord_dim = "#4C566A"
+
+[character]
+success_symbol = "[>](bold nord_green)"
+error_symbol = "[>](bold nord_red)"
+
+[directory]
+style = "bold nord_blue"
+truncation_length = 3
+truncate_to_repo = false
+
+[git_branch]
+style = "bold nord_green"
+format = "[$symbol$branch(:$remote_branch)]($style) "
+
+[git_status]
+style = "nord_yellow"
+format = '([\[$all_status$ahead_behind\]]($style) )'
+
+[cmd_duration]
+style = "nord_dim"
+min_time = 3_000
+format = "[$duration]($style) "
+
+[nodejs]
+style = "nord_green"
+format = "[$symbol($version)]($style) "
+
+[python]
+style = "nord_cyan"
+format = "[$symbol($version)]($style) "
+
+[golang]
+style = "nord_cyan"
+format = "[$symbol($version)]($style) "
+
+[rust]
+style = "nord_red"
+format = "[$symbol($version)]($style) "
+
+[elixir]
+style = "nord_purple"
+format = "[$symbol($version)]($style) "
+
+[java]
+style = "nord_blue"
+format = "[$symbol($version)]($style) "
+
+[dotnet]
+style = "nord_purple"
+format = "[$symbol($version)]($style) "

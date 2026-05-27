@@ -1,0 +1,76 @@
+palette = "tomorrow_day"
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$nodejs\
+$python\
+$golang\
+$rust\
+$elixir\
+$java\
+$dotnet\
+$cmd_duration\
+$line_break\
+$character"""
+
+[palettes.tomorrow_day]
+td_blue = "#4271ae"
+td_green = "#718c00"
+td_yellow = "#eab700"
+td_red = "#c82829"
+td_purple = "#8959a8"
+td_cyan = "#3e999f"
+td_fg = "#4d4d4c"
+td_dim = "#8e908c"
+
+[character]
+success_symbol = "[>](bold td_green)"
+error_symbol = "[>](bold td_red)"
+
+[directory]
+style = "bold td_blue"
+truncation_length = 3
+truncate_to_repo = false
+
+[git_branch]
+style = "bold td_green"
+format = "[$symbol$branch(:$remote_branch)]($style) "
+
+[git_status]
+style = "td_yellow"
+format = '([\[$all_status$ahead_behind\]]($style) )'
+
+[cmd_duration]
+style = "td_dim"
+min_time = 3_000
+format = "[$duration]($style) "
+
+[nodejs]
+style = "td_green"
+format = "[$symbol($version)]($style) "
+
+[python]
+style = "td_cyan"
+format = "[$symbol($version)]($style) "
+
+[golang]
+style = "td_cyan"
+format = "[$symbol($version)]($style) "
+
+[rust]
+style = "td_red"
+format = "[$symbol($version)]($style) "
+
+[elixir]
+style = "td_purple"
+format = "[$symbol($version)]($style) "
+
+[java]
+style = "td_blue"
+format = "[$symbol($version)]($style) "
+
+[dotnet]
+style = "td_purple"
+format = "[$symbol($version)]($style) "

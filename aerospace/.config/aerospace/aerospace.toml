@@ -319,6 +319,11 @@ run = 'layout floating'
 if.app-id = 'com.1password.1password'
 run = 'layout floating'
 
+# Bloom: always float
+[[on-window-detected]]
+if.app-id = 'com.asiafu.Bloom'
+run = 'layout floating'
+
 # Finder: always float
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
