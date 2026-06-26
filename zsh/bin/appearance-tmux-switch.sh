@@ -19,7 +19,9 @@ if [ "$1" = "1" ]; then
     $TMUX source-file "$NORD_DIR/src/nord.conf"
     $TMUX source-file "$NORD_DIR/src/nord-status-content.conf"
   fi
+  $TMUX set -g window-style 'bg=#333a47'
 else
   # Light: source doom-tomorrow-day theme
   "$DOTFILES/tmux/themes/doom-tomorrow-day.tmux"
+  $TMUX set -g window-style 'bg=#f8f8f8'
 fi
