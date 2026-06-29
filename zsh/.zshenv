@@ -18,7 +18,7 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 test -d $HOME/.npm-global/bin && export PATH="$HOME/.npm-global/bin:$PATH"
 
 # Docker/Podman
-(( $+commands[podman] )) && export DOCKER_HOST="unix://$(podman machine inspect --format '{{.ConnectionInfo.PodmanSocket.Path}}')"
+(( $+commands[podman] )) && export DOCKER_HOST="unix://$HOME/.local/share/containers/podman/machine/podman.sock"
 
 # Kubernetes stuff
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"

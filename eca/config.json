@@ -1,0 +1,32 @@
+{
+  "providers": {
+    "intility": {
+      "api": "openai-chat",
+      "key": "${env:OPENAI_API_KEY}",
+      "url": "https://rolf-020871d4-llm.ai.intility.app/v1",
+      "models": {
+        "GLM-5.1": {}
+      }
+    }
+  },
+  "mcpServers": {
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+    },
+    "bifrost": {
+      "type": "http",
+      "url": "https://bifrost.intility.com/api/mcp"
+    },
+    "figma-dev-mode": {
+      "type": "http",
+      "url": "https://mcp.figma.com/mcp"
+    }
+  },
+  "plugins": {
+    "install": [
+      "superpowers"
+    ]
+  },
+  "$schema": "https://eca.dev/config.json"
+}
