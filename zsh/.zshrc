@@ -182,7 +182,13 @@ ulimit -n 8192
 export GPG_TTY=$(tty)
 
 # Emacs client (connects to running daemon, starts one if needed)
+# Override the oh-my-zsh emacs plugin alias; its frame-detection
+# logic errors on macOS when no file argument is given.
+unalias emacs 2>/dev/null
 unalias e 2>/dev/null
+emacs() {
+    emacsclient --alternate-editor="" --create-frame --no-wait "$@"
+}
 e() {
     TERM=xterm-256color emacsclient -nw --alternate-editor="" "$@"
 }
