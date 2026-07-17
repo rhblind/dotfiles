@@ -3,20 +3,19 @@
     "intility": {
       "api": "openai-chat",
       "key": "${env:OPENAI_API_KEY}",
-      "url": "https://rolf-020871d4-llm.ai.intility.app/v1",
+      "url": "https://rolf-6e774e4a-llm.ai.intility.app/v1",
       "models": {
-        "GLM-5.1": {}
+        "GLM-5.2": {}
       }
     }
   },
   "mcpServers": {
     "sequential-thinking": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
-    },
-    "bifrost": {
-      "type": "http",
-      "url": "https://bifrost.intility.com/api/mcp"
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
     },
     "figma-dev-mode": {
       "type": "http",
