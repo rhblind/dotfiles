@@ -71,7 +71,7 @@ on-mode-changed = []
     1 = 'main'
     2 = ['P24h-2L', 'main']
     3 = ['built-in', 'P24h-30', 'main']
-    4 = ['P24h-30', 'main']
+    4 = ['built-in', 'P24h-30', 'main']
     5 = ['P24h-2L', 'main']
     6 = ['P24h-2L', 'main']
     7 = ['P24h-2L', 'main']
@@ -281,18 +281,18 @@ if.window-title-regex-substring = '.+'  # Only match windows with actual titles 
 if.during-aerospace-startup = true      # Only auto-assign on startup, not for child frames/popups
 run = 'move-node-to-workspace 2'
 
-# Workspace 3: Communication (built-in monitor)
+# Workspace 4: Communication (built-in monitor)
 [[on-window-detected]]
 if.app-id = 'com.tinyspeck.slackmacgap'
-run = 'move-node-to-workspace 3'
+run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.teams2'
-run = 'move-node-to-workspace 3'
+run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
-run = 'move-node-to-workspace 3'
+run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.MobileSMS'
