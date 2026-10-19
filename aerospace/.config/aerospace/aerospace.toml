@@ -69,14 +69,14 @@ on-mode-changed = []
 
 [workspace-to-monitor-force-assignment]
     1 = 'main'
-    2 = [3, 'main']
-    3 = ['built-in', 'main']
-    4 = 'main'
-    5 = [3, 'main']
-    6 = [3, 'main']
-    7 = [3, 'main']
-    8 = 'built-in'
-    9 = 'built-in'
+    2 = ['P24h-2L', 'main']
+    3 = ['built-in', 'P24h-30', 'main']
+    4 = ['P24h-30', 'main']
+    5 = ['P24h-2L', 'main']
+    6 = ['P24h-2L', 'main']
+    7 = ['P24h-2L', 'main']
+    8 = ['built-in', 'P24h-30', 'main']
+    9 = ['built-in', 'P24h-30', 'main']
 
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
 # Possible values:
@@ -339,4 +339,9 @@ run = 'layout floating'
 [[on-window-detected]]
 if.app-name-regex-substring = 'Erlang'
 if.window-title-regex-substring = ':'
+run = 'layout floating'
+
+# Steam: always float
+[[on-window-detected]]
+if.app-id = 'com.valvesoftware.steam'
 run = 'layout floating'
