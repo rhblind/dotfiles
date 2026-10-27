@@ -77,13 +77,13 @@ brew install tmux
 Install [TPM](https://github.com/tmux-plugins/tpm) (Tmux Plugin Manager):
 
 ```sh
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 ```
 
 Symlink the config:
 
 ```sh
-cd ~/.dotfiles && stow tmux
+cd ~/.dotfiles && stow -t ~/.config/tmux tmux
 ```
 
 Start tmux and install plugins:
